@@ -1,0 +1,88 @@
+.ajwa-accordion__item {
+  border-bottom: 1px solid var(--ajwa-hairline);
+}
+
+.ajwa-accordion__item:first-child {
+  border-top: 1px solid var(--ajwa-hairline);
+}
+
+.ajwa-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ajwa-space-md);
+  width: 100%;
+  padding-block: var(--ajwa-space-md);
+  padding-inline: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ajwa-accordion__question {
+  font-family: var(--ajwa-font-serif);
+  font-size: var(--ajwa-text-h-sm);
+  line-height: 1.4;
+  color: var(--ajwa-ink);
+}
+
+/* Plus/minus glyph — two 1px bars; the vertical one rotates away on open. */
+.ajwa-accordion__glyph {
+  position: relative;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+}
+
+.ajwa-accordion__glyph::before,
+.ajwa-accordion__glyph::after {
+  content: '';
+  position: absolute;
+  background: var(--ajwa-ink);
+  transition:
+    transform var(--ajwa-dur-fast) var(--ajwa-ease),
+    opacity var(--ajwa-dur-fast) var(--ajwa-ease);
+}
+
+.ajwa-accordion__glyph::before {
+  top: 50%;
+  left: 0;
+  width: 12px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.ajwa-accordion__glyph::after {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 12px;
+  transform: translateX(-50%);
+}
+
+.ajwa-accordion__item--open .ajwa-accordion__glyph::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+/* Panel — grid-rows 0fr -> 1fr height animation. */
+.ajwa-accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--ajwa-dur-fast) var(--ajwa-ease);
+}
+
+.ajwa-accordion__item--open .ajwa-accordion__panel {
+  grid-template-rows: 1fr;
+}
+
+.ajwa-accordion__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.ajwa-accordion__answer {
+  padding-bottom: var(--ajwa-space-md);
+  max-width: var(--ajwa-measure);
+}

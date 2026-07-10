@@ -6,3 +6,7 @@ ds-bundle/
 .design-sync/.cache/
 .design-sync/learnings/
 .design-sync/node_modules
+
+# Reference bundle + unused source clips (not part of the demo/deploy)
+AJWA Scroll Landing.html
+demo/img/*.mp4

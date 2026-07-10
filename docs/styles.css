@@ -1,0 +1,25 @@
+/* AJWA Design System — single entry stylesheet.
+   Everything a page needs arrives through this file's @import closure. */
+@import './css/fonts.css';
+@import './css/tokens.css';
+@import './css/base.css';
+
+@import './css/components/eyebrow.css';
+@import './css/components/heading.css';
+@import './css/components/text.css';
+@import './css/components/button.css';
+@import './css/components/text-link.css';
+@import './css/components/section-header.css';
+@import './css/components/hero.css';
+@import './css/components/spec-strip.css';
+@import './css/components/price.css';
+@import './css/components/stay-card.css';
+@import './css/components/offer-card.css';
+@import './css/components/booking-strip.css';
+@import './css/components/stat-strip.css';
+@import './css/components/site-header.css';
+@import './css/components/site-footer.css';
+@import './css/components/footer-cta.css';
+@import './css/components/pattern-divider.css';
+@import './css/components/lang-switcher.css';
+@import './css/components/accordion.css';

@@ -1,0 +1,16 @@
+.ajwa-section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ajwa-space-md);
+}
+
+.ajwa-section-header--center {
+  align-items: center;
+  text-align: center;
+}
+
+/* Breathe a little more before the lead than between eyebrow and title. */
+.ajwa-section-header__lead {
+  margin-top: var(--ajwa-space-2xs);
+}

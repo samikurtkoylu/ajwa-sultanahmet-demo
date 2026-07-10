@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sultanahmet | AJWA Hotels</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* ————— AJWA Scroll Landing — page styles (design tokens come from ./styles.css) ————— */
+      :root { --ajwa-logo-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xml%3Aspace%3D%22preserve%22%20width%3D%221248px%22%20height%3D%221576px%22%20version%3D%221.1%22%20shape-rendering%3D%22geometricPrecision%22%20text-rendering%3D%22geometricPrecision%22%20image-rendering%3D%22optimizeQuality%22%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20viewBox%3D%22612%20552%201248%201576%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Axodm%3D%22http%3A%2F%2Fwww.corel.com%2Fcoreldraw%2Fodm%2F2003%22%3E%20%20%3Cg%20id%3D%22Layer_x0020_1%22%3E%20%20%20%3Cmetadata%20id%3D%22CorelCorpID_0Corel-Layer%22%3E%3C%2Fmetadata%3E%20%20%20%3Cpath%20fill%3D%22%23382B25%22%20fill-rule%3D%22nonzero%22%20d%3D%22M779%201648l-1%200c-15%2C40%20-29%2C80%20-43%2C119l85%200%20-41%20-119zm989%20392c-2%2C-9%20-6%2C-19%20-19%2C-19%20-10%2C0%20-15%2C7%20-15%2C15%200%2C10%206%2C15%2018%2C20%2012%2C6%2024%2C13%2024%2C28%200%2C15%20-13%2C27%20-32%2C27%20-6%2C0%20-10%2C-1%20-14%2C-2%20-4%2C-1%20-6%2C-2%20-7%2C-3%20-1%2C-3%20-3%2C-15%20-4%2C-22l4%20-1c2%2C9%209%2C23%2023%2C23%2010%2C0%2016%2C-6%2016%2C-16%200%2C-10%20-7%2C-15%20-18%2C-21%20-10%2C-5%20-23%2C-12%20-23%2C-28%200%2C-14%2011%2C-25%2030%2C-25%207%2C0%2013%2C2%2018%2C3%201%2C5%201%2C11%203%2C20l-4%201zm-168%2047c-1%2C5%20-4%2C18%20-5%2C23l-65%200%200%20-4c12%2C-1%2013%2C-2%2013%2C-14l0%20-56c0%2C-12%20-1%2C-13%20-12%2C-14l0%20-4%2038%200%200%204c-11%2C1%20-12%2C2%20-12%2C14l0%2055c0%2C7%201%2C10%203%2C12%203%2C2%207%2C2%2013%2C2%207%2C0%2012%2C-1%2015%2C-4%203%2C-3%205%2C-7%207%2C-14l4%201zm-190%200c-1%2C5%20-4%2C18%20-5%2C22l-69%200%200%20-4c13%2C-1%2014%2C-2%2014%2C-14l0%20-56c0%2C-13%20-1%2C-13%20-12%2C-14l0%20-4%2063%200c0%2C3%201%2C13%201%2C20l-4%201c-1%2C-6%20-3%2C-9%20-5%2C-12%20-2%2C-3%20-6%2C-4%20-15%2C-4l-10%200c-5%2C0%20-5%2C0%20-5%2C5l0%2032%2013%200c13%2C0%2013%2C-1%2015%2C-11l4%200%200%2027%20-4%200c-2%2C-10%20-3%2C-11%20-15%2C-11l-13%200%200%2026c0%2C7%201%2C10%203%2C12%203%2C2%208%2C2%2014%2C2%2010%2C0%2014%2C-1%2017%2C-5%202%2C-3%205%2C-8%207%2C-13l4%201zm-198%20-47c-2%2C-7%20-3%2C-11%20-5%2C-13%20-2%2C-3%20-5%2C-4%20-15%2C-4l-9%200%200%2069c0%2C11%201%2C13%2014%2C14l0%204%20-41%200%200%20-4c13%2C-1%2014%2C-2%2014%2C-14l0%20-69%20-8%200c-12%2C0%20-14%2C1%20-16%2C4%20-2%2C2%20-3%2C6%20-5%2C13l-4%200c1%2C-9%201%2C-18%202%2C-26l3%200c2%2C3%204%2C4%208%2C4l56%200c4%2C0%205%2C-1%207%2C-4l3%200c0%2C6%201%2C17%201%2C25l-4%200zm-275%2021c0%2C26%2014%2C45%2033%2C45%2015%2C0%2029%2C-13%2029%2C-40%200%2C-29%20-15%2C-45%20-33%2C-45%20-15%2C0%20-29%2C14%20-29%2C40zm78%202c0%2C30%20-21%2C49%20-47%2C49%20-26%2C0%20-46%2C-20%20-46%2C-47%200%2C-25%2018%2C-49%2048%2C-49%2024%2C0%2046%2C19%2046%2C47zm-216%20-41c-12%2C1%20-13%2C2%20-13%2C14l0%2056c0%2C12%201%2C13%2012%2C14l0%204%20-39%200%200%20-4c12%2C-1%2013%2C-2%2013%2C-14l0%20-28%20-46%200%200%2028c0%2C12%201%2C13%2012%2C14l0%204%20-38%200%200%20-4c11%2C-1%2012%2C-2%2012%2C-14l0%20-56c0%2C-12%20-1%2C-13%20-13%2C-14l0%20-4%2037%200%200%204c-11%2C1%20-12%2C2%20-12%2C14l0%2022%2046%200%200%20-22c0%2C-12%20-1%2C-13%20-12%2C-14l0%20-4%2038%200%200%204zm707%20-1005c2%2C101%20-29%2C182%20-92%2C233%20-140%2C115%20-172%2C138%20-176%2C221%200%2C0%2013%2C-6%2094%2C-50%20273%2C-148%20180%2C-391%20174%2C-404zm-443%20233c-63%2C-52%20-94%2C-132%20-92%2C-233%20-6%2C13%20-99%2C256%20174%2C404%2081%2C44%2094%2C50%2094%2C50%20-4%2C-83%20-36%2C-106%20-176%2C-221zm148%20-94c7%2C6%2023%2C14%2028%2C26%205%2C-12%2020%2C-20%2028%2C-26%2021%2C-18%2049%2C-42%2097%2C-98%2078%2C-91%2051%2C-208%2019%2C-301%20-6%2C-19%20-24%2C-71%20-24%2C-71%201%2C16%2029%2C223%20-51%2C306%20-31%2C32%20-68%2C74%20-68%2C119%200%2C-45%20-37%2C-87%20-68%2C-119%20-80%2C-83%20-52%2C-290%20-51%2C-306%200%2C1%20-18%2C52%20-24%2C71%20-32%2C94%20-59%2C210%2019%2C301%2048%2C56%2076%2C80%2097%2C98zm-124%2065c73%2C60%20126%2C87%20152%2C147%2026%2C-59%2079%2C-87%20152%2C-147%20104%2C-86%20102%2C-274%2056%2C-371%208%2C68%205%2C173%20-49%2C233%20-51%2C57%20-85%2C83%20-107%2C102%200%2C0%200%2C0%20-1%2C0%20-28%2C24%20-52%2C59%20-52%2C96%200%2C-37%20-24%2C-72%20-52%2C-96%200%2C0%200%2C0%20-1%2C0%20-22%2C-19%20-56%2C-45%20-107%2C-102%20-54%2C-60%20-57%2C-165%20-49%2C-233%20-46%2C96%20-48%2C285%2056%2C371zm169%20-261c1%2C-2%204%2C-8%205%2C-16%2010%2C-5%2031%2C-6%2039%2C-31%2015%2C-46%2021%2C-88%2016%2C-228%20-2%2C-57%20-45%2C-54%20-50%2C-66%20-2%2C-4%20-6%2C-6%20-10%2C-8%202%2C-1%203%2C-3%204%2C-4%204%2C-7%20-12%2C-14%20-15%2C-23%20-3%2C-9%20-7%2C-19%20-7%2C-19%200%2C0%20-4%2C10%20-7%2C19%20-3%2C9%20-19%2C16%20-15%2C23%201%2C2%203%2C3%204%2C4%20-4%2C1%20-8%2C4%20-10%2C8%20-5%2C12%20-48%2C9%20-50%2C66%20-5%2C139%201%2C182%2016%2C228%209%2C25%2029%2C26%2039%2C31%201%2C8%204%2C14%205%2C16%202%2C2%205%2C-1%208%2C-1%203%2C0%209%2C10%209%2C10%200%2C0%206%2C-10%209%2C-10%203%2C0%206%2C3%208%2C1zm429%20689l-1%200c-15%2C40%20-29%2C80%20-43%2C119l85%200%20-41%20-119zm45%20249l0%20-15c30%2C-4%2034%2C-7%2028%2C-25%20-7%2C-18%20-15%2C-42%20-24%2C-68l-101%200c-7%2C19%20-13%2C37%20-19%2C56%20-10%2C29%20-6%2C34%2029%2C37l0%2015%20-105%200%200%20-15c30%2C-4%2037%2C-7%2053%2C-48l97%20-242%2016%20-5c29%2C79%2061%2C169%2090%2C248%2014%2C40%2021%2C44%2052%2C47l0%2015%20-116%200zm-161%20-288c-32%2C4%20-36%2C8%20-50%2C45%20-10%2C28%20-39%2C118%20-77%2C247l-17%200c-26%2C-74%20-56%2C-159%20-81%2C-231l-1%200c-27%2C82%20-53%2C156%20-77%2C231l-17%200c-24%2C-84%20-51%2C-165%20-76%2C-248%20-12%2C-37%20-19%2C-41%20-48%2C-44l0%20-15%20115%200%200%2015c-35%2C4%20-35%2C7%20-29%2C30%2019%2C63%2036%2C125%2057%2C190l1%200c25%2C-80%2052%2C-156%2076%2C-231l16%200c26%2C77%2053%2C151%2081%2C232l1%200c20%2C-62%2046%2C-153%2053%2C-185%206%2C-27%204%2C-32%20-32%2C-36l0%20-15%20104%200%200%2015zm-474%200c-37%2C3%20-41%2C6%20-41%2C44l0%20172c0%2C62%20-10%2C96%20-41%2C123%20-16%2C14%20-31%2C22%20-44%2C26l-7%20-15c27%2C-13%2041%2C-35%2046%2C-62%204%2C-22%205%2C-49%205%2C-88l0%20-156c0%2C-38%20-4%2C-42%20-42%2C-44l0%20-15%20124%200%200%2015zm-272%20288l0%20-15c30%2C-4%2034%2C-7%2028%2C-25%20-7%2C-18%20-15%2C-42%20-24%2C-68l-101%200c-7%2C19%20-13%2C37%20-19%2C56%20-10%2C29%20-6%2C34%2029%2C37l0%2015%20-105%200%200%20-15c30%2C-4%2037%2C-7%2053%2C-48l97%20-242%2016%20-5c29%2C79%2061%2C169%2090%2C248%2014%2C40%2021%2C44%2052%2C47l0%2015%20-116%200z%22%3E%3C%2Fpath%3E%20%20%3C%2Fg%3E%20%3C%2Fsvg%3E"); }
+
+      html, body { margin: 0; padding: 0; }
+      body { background: var(--ajwa-bg, #f4f1ea); }
+      html.lenis, html.lenis body { height: auto; }
+      .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+      /* Preloader */
+      .lp-preloader { position: fixed; inset: 0; z-index: 100; overflow: hidden; pointer-events: none; }
+      .lp-preloader__zoom { position: absolute; inset: 0; will-change: transform; transform-origin: 50% calc(50% - 0.4285 * clamp(120px, 15vw, 180px)); }
+      .lp-preloader__cover {
+        position: absolute; inset: 0; background: var(--ajwa-brown-900);
+        -webkit-mask-image: var(--ajwa-logo-mask), linear-gradient(#000 0 0);
+        -webkit-mask-repeat: no-repeat, no-repeat;
+        -webkit-mask-position: center, center;
+        -webkit-mask-size: clamp(120px, 15vw, 180px) auto, 100% 100%;
+        -webkit-mask-composite: xor;
+        mask-image: var(--ajwa-logo-mask), linear-gradient(#000 0 0);
+        mask-repeat: no-repeat, no-repeat;
+        mask-position: center, center;
+        mask-size: clamp(120px, 15vw, 180px) auto, 100% 100%;
+        mask-composite: exclude;
+      }
+      .lp-preloader__gold {
+        position: absolute; inset: 0; background: var(--ajwa-gold-400);
+        -webkit-mask-image: var(--ajwa-logo-mask), linear-gradient(to bottom, transparent -14%, #000 -2%);
+        -webkit-mask-repeat: no-repeat, no-repeat;
+        -webkit-mask-position: center, 0 0;
+        -webkit-mask-size: clamp(120px, 15vw, 180px) auto, 100% 100%;
+        -webkit-mask-composite: source-in;
+        mask-image: var(--ajwa-logo-mask), linear-gradient(to bottom, transparent -14%, #000 -2%);
+        mask-repeat: no-repeat, no-repeat;
+        mask-position: center, 0 0;
+        mask-size: clamp(120px, 15vw, 180px) auto, 100% 100%;
+        mask-composite: intersect;
+      }
+
+      /* Fixed header */
+      .lp-header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 18px var(--ajwa-space-lg);
+        background: var(--ajwa-bg); border-bottom: 1px solid var(--ajwa-hairline);
+      }
+      .lp-header__logo { display: flex; align-items: center; }
+      .lp-header__logo img { height: 30px; width: auto; display: block; }
+      .lp-header__nav { display: flex; align-items: center; gap: var(--ajwa-space-lg); }
+      .lp-navlink {
+        font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm);
+        letter-spacing: var(--ajwa-track-label); text-transform: uppercase; font-weight: 600;
+        color: inherit; text-decoration: none;
+        transition: color var(--ajwa-dur-fast) var(--ajwa-ease);
+      }
+      .lp-navlink:hover { color: var(--ajwa-accent-ink); }
+      .lp-navlink--cta { border-bottom: 1px solid var(--ajwa-hairline-strong); padding-bottom: 5px; }
+      @media (max-width: 760px) { .lp-header__nav .lp-navlink:not(.lp-navlink--cta) { display: none; } }
+
+      /* Page above the fixed footer */
+      .lp-page { position: relative; z-index: 2; background: var(--ajwa-bg); }
+      /* The page casts a soft shadow onto the footer it reveals beneath it —
+         reads as the shadow under the Reservations band. */
+      .lp-page::after {
+        content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 140px;
+        background: linear-gradient(to bottom, rgba(36, 27, 23, 0.35), rgba(36, 27, 23, 0));
+        pointer-events: none;
+      }
+
+      /* Sections */
+      .lp-section { padding: var(--ajwa-space-3xl) var(--ajwa-space-lg); }
+      .lp-wrap { max-width: var(--ajwa-container); margin: 0 auto; }
+
+      /* Hero */
+      .lp-hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; padding: var(--ajwa-space-2xl) var(--ajwa-space-lg); }
+      .lp-hero__media { position: absolute; inset: 0; z-index: 0; will-change: transform; }
+      .lp-hero__media [data-hero-exit] { position: absolute; inset: 0; }
+      .lp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+      /* The mainpage's hero film (local copy), covering like the poster. */
+      .lp-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .lp-hero__scrim { position: absolute; inset: 0; z-index: 1; background: var(--ajwa-scrim); pointer-events: none; }
+      .lp-hero__tagline {
+        position: absolute; left: 0; right: 0; bottom: var(--ajwa-space-xl); z-index: 2;
+        display: grid; justify-items: center; text-align: center;
+        padding: 0 var(--ajwa-space-lg); pointer-events: none;
+      }
+      .lp-hero__tagline p { margin: 0; font-family: var(--ajwa-font-serif); font-size: var(--ajwa-text-body-lg); color: var(--ajwa-bone-100); }
+
+      /* Reveal-line masks */
+      .lp-mask { display: block; overflow: hidden; }
+      .lp-mask [data-line] { display: block; }
+
+      /* Small gold eyebrow (reference style) */
+      .lp-eyebrow {
+        margin: 0; font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm);
+        letter-spacing: var(--ajwa-track-label); text-transform: uppercase; font-weight: 600;
+        color: var(--ajwa-accent-ink);
+      }
+
+      /* Manifesto — centered, with a marquee headline */
+      .lp-manifesto { display: grid; justify-items: center; gap: var(--ajwa-space-xl); text-align: center; }
+      .lp-manifesto__lead { margin: 0; max-width: var(--ajwa-measure); font-size: var(--ajwa-text-body-lg); line-height: var(--ajwa-leading-body); color: var(--ajwa-ink-soft); }
+
+      /* Marquee headline (nueve.gr-style): one endless line, fading out toward
+         the edges; scroll velocity leans on the tempo. */
+      .lp-marquee {
+        width: calc(100% + 2 * var(--ajwa-space-lg));
+        margin-inline: calc(-1 * var(--ajwa-space-lg));
+        font-size: calc(var(--ajwa-text-display-1) * 0.75);
+        overflow: hidden; white-space: nowrap;
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+      }
+      .lp-marquee__track { display: inline-flex; width: max-content; will-change: transform; }
+      .lp-marquee__item { display: inline-block; padding-right: 1.2em; }
+      .lp-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      @media (prefers-reduced-motion: reduce) {
+        .lp-marquee { -webkit-mask-image: none; mask-image: none; }
+      }
+
+      /* Alternating feature rows (rooms, spa) */
+      .lp-feature { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ajwa-space-2xl); align-items: center; }
+      .lp-feature + .lp-feature { margin-top: var(--ajwa-space-3xl); }
+      .lp-feature__body { display: grid; gap: var(--ajwa-space-md); justify-items: start; }
+      .lp-feature--flip .lp-feature__body { order: 1; }
+      .lp-feature--flip .lp-figure { order: 2; }
+      .lp-figure { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--ajwa-bg-sunken); }
+      .lp-figure [data-parallax] { position: absolute; left: 0; right: 0; top: -8%; height: 116%; }
+      .lp-figure img { width: 100%; height: 100%; object-fit: cover; }
+      @media (max-width: 899.98px) {
+        .lp-feature { grid-template-columns: 1fr; gap: var(--ajwa-space-lg); }
+        .lp-feature--flip .lp-feature__body { order: 2; }
+        .lp-feature--flip .lp-figure { order: 1; }
+      }
+
+      /* Arch-opening image — nueve.gr-style scroll frame: starts as a narrow
+         arch, widens to full bleed as you scroll (scrubbed). */
+      .lp-arch { padding: var(--ajwa-space-3xl) var(--ajwa-space-lg) var(--ajwa-space-2xl); display: grid; justify-items: center; gap: var(--ajwa-space-lg); }
+      .lp-arch__frame { position: relative; width: clamp(240px, 52vw, 430px); height: min(80vh, 660px); overflow: hidden; border-radius: 999px 999px 0 0; }
+      /* The image is fixed at the frame's FINAL size and centered on it, so the
+         widening frame acts as a window opening over a still photograph —
+         only the frame animates, never the image. */
+      .lp-arch__frame img {
+        position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+        width: calc(100vw - 2 * var(--ajwa-space-lg));
+        max-width: none;
+        height: 100%; object-fit: cover;
+      }
+
+      /* Column grids (dining) */
+      .lp-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--ajwa-space-xl); }
+      .lp-col { display: grid; gap: var(--ajwa-space-sm); align-content: start; justify-items: start; }
+
+      /* Offers grid */
+      .lp-offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--ajwa-space-lg); }
+      .lp-offer-media { aspect-ratio: 4 / 5; }
+      .lp-offer-media .ajwa-offer-card__img { height: 100%; }
+
+      /* Dark booking band */
+      .lp-book { text-align: center; }
+      .lp-book__inner { display: grid; justify-items: center; gap: var(--ajwa-space-lg); }
+      .lp-book__actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--ajwa-space-lg); margin-top: var(--ajwa-space-sm); }
+      .lp-btn-gold {
+        display: inline-block; padding: 16px 32px;
+        border: 1px solid var(--ajwa-gold-400); color: var(--ajwa-gold-400);
+        font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm);
+        letter-spacing: var(--ajwa-track-label); text-transform: uppercase; font-weight: 600;
+        text-decoration: none;
+        transition: background-color var(--ajwa-dur-fast) var(--ajwa-ease), color var(--ajwa-dur-fast) var(--ajwa-ease);
+      }
+      .lp-btn-gold:hover { background: var(--ajwa-gold-400); color: var(--ajwa-brown-900); }
+
+      /* Fixed footer + reveal */
+      .lp-footer-spacer { position: relative; z-index: 0; }
+      .lp-footer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1; background: var(--ajwa-bg); color: var(--ajwa-ink); overflow: hidden; }
+      .lp-footer__inner {
+        position: relative; z-index: 1;
+        padding: var(--ajwa-space-2xl) var(--ajwa-space-lg) 0;
+        display: grid; justify-items: center; gap: var(--ajwa-space-lg); text-align: center;
+        background-color: #f4f1ea;
+      }
+      /* Only the map + addresses take part in the reveal; the link band below
+         stays put. Addresses sit left, the map fills the right. */
+      .lp-footer__reveal {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+        gap: var(--ajwa-space-lg) var(--ajwa-space-2xl);
+        width: 100%; max-width: var(--ajwa-container);
+        will-change: filter, transform, opacity; text-align: left;
+      }
+      .lp-footer__logo { width: min(700px, 58vw); height: auto; display: block; }
+      .lp-footer__addresses {
+        display: grid; grid-template-columns: 1fr; gap: var(--ajwa-space-lg);
+        flex: 0 0 auto; text-align: left;
+      }
+      .lp-footer__addr { display: grid; gap: var(--ajwa-space-2xs); align-content: start; }
+      .lp-footer__addr p { margin: 0; font-family: var(--ajwa-font-serif); font-size: var(--ajwa-text-body-sm); color: var(--ajwa-ink-soft); line-height: 1.55; }
+      /* Slim link band: label + links share a single line per group. */
+      .lp-footer__band { width: calc(100% + 2 * var(--ajwa-space-lg)); margin: var(--ajwa-space-md) calc(-1 * var(--ajwa-space-lg)) 0; background: #f7f7f7; border-top: 1px solid var(--ajwa-hairline); }
+      .lp-footer__band-inner { max-width: var(--ajwa-container); margin: 0 auto; padding: var(--ajwa-space-md) var(--ajwa-space-lg); display: grid; gap: var(--ajwa-space-md); text-align: left; }
+      .lp-footer__linkrows { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--ajwa-space-sm) var(--ajwa-space-2xl); }
+      .lp-footer__linkrow { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--ajwa-space-2xs) var(--ajwa-space-md); }
+      .lp-footer__legal { border-top: 1px solid var(--ajwa-hairline); padding-top: var(--ajwa-space-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--ajwa-space-sm); }
+      .lp-footer__legal p { margin: 0; font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm); letter-spacing: var(--ajwa-track-label); text-transform: uppercase; color: var(--ajwa-ink-muted); }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ajwa-root">
+
+      <!-- Preloader: gold drains down the AJWA emblem, then the page dives through it -->
+      <div class="lp-preloader" data-preloader>
+        <div class="lp-preloader__zoom" data-preloader-zoom>
+          <div class="lp-preloader__cover" data-preloader-cover aria-hidden="true"></div>
+          <div class="lp-preloader__gold" data-preloader-gold aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Fixed header -->
+      <header class="lp-header">
+        <a class="lp-header__logo" href="https://www.ajwa.com.tr/sultanahmet/mainpage.aspx" aria-label="AJWA Hotels">
+          <img src="./img/ajwa-logo.png" alt="AJWA Hotels" />
+        </a>
+        <nav class="lp-header__nav" aria-label="Primary">
+          <a class="lp-navlink" href="#rooms" data-scroll-to>Rooms &amp; Suites</a>
+          <a class="lp-navlink" href="#dining" data-scroll-to>Dining</a>
+          <a class="lp-navlink" href="#spa" data-scroll-to>Spa</a>
+          <a class="lp-navlink" href="#offers" data-scroll-to>Offers</a>
+          <a class="lp-navlink lp-navlink--cta" href="#book" data-scroll-to>Book your stay</a>
+        </nav>
+      </header>
+
+      <div class="lp-page">
+
+        <!-- Hero -->
+        <section id="top" class="lp-hero" data-hero>
+          <div class="lp-hero__media" data-hero-media>
+            <div data-hero-exit>
+              <img src="./img/sultanahmet-hero.jpg" alt="AJWA Sultanahmet — the hotel at dusk over the Old City" />
+              <video class="lp-hero__video" src="./video/hero.mp4" poster="./img/sultanahmet-hero.jpg"
+                autoplay muted loop playsinline aria-hidden="true"></video>
+            </div>
+          </div>
+          <div class="lp-hero__scrim" aria-hidden="true"></div>
+          <div class="lp-hero__tagline ajwa-scheme-dark">
+            <span class="lp-mask"><p data-line>The heart of Istanbul&rsquo;s historical peninsula.</p></span>
+          </div>
+        </section>
+
+        <!-- Manifesto — A Unique Experience (centered, marquee headline) -->
+        <section class="lp-section">
+          <div class="lp-manifesto">
+            <p class="lp-eyebrow" data-fade>A Unique Experience</p>
+            <h1 class="ajwa-heading ajwa-heading--display-1 lp-marquee">
+              <span class="lp-marquee__track" data-marquee-track aria-hidden="true">
+                <span class="lp-marquee__item">More than a mere five-star hotel.</span>
+                <span class="lp-marquee__item">More than a mere five-star hotel.</span>
+              </span>
+              <span class="lp-sr-only">More than a mere five-star hotel.</span>
+            </h1>
+            <p class="lp-manifesto__lead" data-fade>AJWA Sultanahmet offers serenity and gracious hospitality in settings akin to a private mansion. Adorned with exquisite mother-of-pearl furniture, silk Tabriz carpets, original artwork, unique marble work, hand-painted ceilings and specially commissioned tiles throughout its 61 rooms, suites and public areas, the hotel embraces all aspects of luxury hospitality with a halal approach.</p>
+            <div data-fade>
+              <div class="ajwa-stat-strip ajwa-stat-strip--center">
+                <ul class="ajwa-stat-strip__list">
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">61</span><span class="ajwa-stat-strip__label">Rooms &amp; suites</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">48</span><span class="ajwa-stat-strip__label">Deluxe rooms</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">13</span><span class="ajwa-stat-strip__label">Suites</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">24/7</span><span class="ajwa-stat-strip__label">Concierge &amp; in-room dining</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- The Gate — the arch opens as you scroll -->
+        <section class="lp-arch" data-arch>
+          <div class="lp-arch__frame" data-arch-frame>
+            <!-- entrance.jpg: drop the supplied entrance photo into demo/img/;
+                 until it exists the aerial gate shot stands in. -->
+            <img src="./img/entrance.jpg" onerror="this.onerror=null;this.src='./img/real-hotel.jpg'" alt="The entrance portal of AJWA Sultanahmet" loading="lazy" />
+          </div>
+          <p class="ajwa-text ajwa-text--serif ajwa-text--center ajwa-text--measure" data-fade>The finest features of Seljuk and Ottoman architecture, reborn in the heart of the Old City.</p>
+        </section>
+
+        <!-- Rooms & Suites -->
+        <section id="rooms" class="lp-section">
+          <div class="lp-wrap">
+            <div style="display: grid; gap: var(--ajwa-space-md); margin-bottom: var(--ajwa-space-2xl);">
+              <p class="lp-eyebrow" data-fade>Accommodation</p>
+              <h2 class="ajwa-heading ajwa-heading--lg" data-reveal>
+                <span class="lp-mask"><span data-line>Rooms &amp; Suites</span></span>
+              </h2>
+              <p class="ajwa-text ajwa-text--lg ajwa-text--serif ajwa-text--measure" data-fade>The rooms of AJWA Sultanahmet were curated with &ldquo;a sense of place&rdquo; in mind, with design features and details that genuinely reflect the culture and traditions of this historic city. Accessible rooms are also available on request.</p>
+            </div>
+
+            <!-- 01 Deluxe Room -->
+            <div class="lp-feature">
+              <div class="lp-figure" data-clip>
+                <div data-parallax><img src="./img/room-deluxe.jpg" alt="Deluxe Room at AJWA Sultanahmet" loading="lazy" /></div>
+              </div>
+              <div class="lp-feature__body">
+                <p class="lp-eyebrow" data-fade>01 &mdash; Rooms</p>
+                <h3 class="ajwa-heading ajwa-heading--md" data-reveal>
+                  <span class="lp-mask"><span data-line>Deluxe Room</span></span>
+                </h3>
+                <p class="ajwa-text ajwa-text--md ajwa-text--measure" data-fade>The generously appointed 48 Deluxe Rooms of the hotel have an average size of 32 sqm, with french or twin beds, and variously offer street and sea views.</p>
+                <div class="ajwa-spec-strip ajwa-spec-strip--sm" data-fade>
+                  <ul class="ajwa-spec-strip__list">
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">32 m&sup2;</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">French or twin beds</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">Street &amp; sea views</span></li>
+                  </ul>
+                </div>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/accommodation/rooms/deluxe-room.2.4.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">Discover the room</span></a>
+              </div>
+            </div>
+
+            <!-- 02 Family Suite -->
+            <div class="lp-feature lp-feature--flip">
+              <div class="lp-feature__body">
+                <p class="lp-eyebrow" data-fade>02 &mdash; Suites</p>
+                <h3 class="ajwa-heading ajwa-heading--md" data-reveal>
+                  <span class="lp-mask"><span data-line>Family Suite</span></span>
+                </h3>
+                <p class="ajwa-text ajwa-text--md ajwa-text--measure" data-fade>AJWA Sultanahmet offers 7 Family Suites that overlook the hotel&rsquo;s atrium with an interior vertical garden. Measuring 47 square meters each, these suites do not offer external views.</p>
+                <div class="ajwa-spec-strip ajwa-spec-strip--sm" data-fade>
+                  <ul class="ajwa-spec-strip__list">
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">47 m&sup2;</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">7 suites</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">Vertical-garden atrium</span></li>
+                  </ul>
+                </div>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/accommodation/suites/family-suite.3.5.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">Discover the suite</span></a>
+              </div>
+              <div class="lp-figure" data-clip>
+                <div data-parallax><img src="./img/room-family.jpg" alt="Family Suite at AJWA Sultanahmet" loading="lazy" /></div>
+              </div>
+            </div>
+
+            <!-- 03 Corner Suite -->
+            <div class="lp-feature">
+              <div class="lp-figure" data-clip>
+                <div data-parallax><img src="./img/room-corner.jpg" alt="Corner Suite at AJWA Sultanahmet" loading="lazy" /></div>
+              </div>
+              <div class="lp-feature__body">
+                <p class="lp-eyebrow" data-fade>03 &mdash; Suites</p>
+                <h3 class="ajwa-heading ajwa-heading--md" data-reveal>
+                  <span class="lp-mask"><span data-line>Corner Suite</span></span>
+                </h3>
+                <p class="ajwa-text ajwa-text--md ajwa-text--measure" data-fade>Measuring a generous 45 sqm each, the 5 Corner Suites in AJWA Sultanahmet are decorated in purple, lilac and Eau-de-Nil shades and furnished with comfortable Ottoman couches. Beautiful mother-of-pearl inlay seats will take you on a journey to the city&rsquo;s imperial past.</p>
+                <div class="ajwa-spec-strip ajwa-spec-strip--sm" data-fade>
+                  <ul class="ajwa-spec-strip__list">
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">45 m&sup2;</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">5 suites</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">Mother-of-pearl inlay</span></li>
+                  </ul>
+                </div>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/accommodation/suites/corner-suite.4.5.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">Discover the suite</span></a>
+              </div>
+            </div>
+
+            <!-- 04 Sultan Suite -->
+            <div class="lp-feature lp-feature--flip">
+              <div class="lp-feature__body">
+                <p class="lp-eyebrow" data-fade>04 &mdash; Suites</p>
+                <h3 class="ajwa-heading ajwa-heading--md" data-reveal>
+                  <span class="lp-mask"><span data-line>Sultan Suite</span></span>
+                </h3>
+                <p class="ajwa-text ajwa-text--md ajwa-text--measure" data-fade>The exquisite 120 sqm Sultan Suite on the 7th floor of AJWA Sultanahmet lives up to its name!</p>
+                <div class="ajwa-spec-strip ajwa-spec-strip--sm" data-fade>
+                  <ul class="ajwa-spec-strip__list">
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">120 m&sup2;</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">7th floor</span></li>
+                    <li class="ajwa-spec-strip__item"><span class="ajwa-spec-strip__value">Sea of Marmara</span></li>
+                  </ul>
+                </div>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/accommodation/suites/sultan-suite.5.5.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">Discover the suite</span></a>
+              </div>
+              <div class="lp-figure" data-clip>
+                <div data-parallax><img src="./img/room-sultan.jpg" alt="Sultan Suite at AJWA Sultanahmet" loading="lazy" /></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dining -->
+        <section id="dining" class="lp-section" style="background: var(--ajwa-bg-sunken);">
+          <div class="lp-wrap" style="display: grid; gap: var(--ajwa-space-2xl);">
+            <div style="display: grid; gap: var(--ajwa-space-md);">
+              <p class="lp-eyebrow" data-fade>Dining</p>
+              <h2 class="ajwa-heading ajwa-heading--lg" data-reveal>
+                <span class="lp-mask"><span data-line>From the top floor</span></span>
+                <span class="lp-mask"><span data-line>to your room</span></span>
+              </h2>
+            </div>
+            <div class="lp-cols">
+              <div class="lp-col">
+                <div class="lp-figure" data-clip style="width: 100%;">
+                  <div data-parallax><img src="./img/real-zeferan.jpg" alt="Zeferan Restaurant" loading="lazy" /></div>
+                </div>
+                <h3 class="ajwa-heading ajwa-heading--sm" data-fade>Zeferan Restaurant</h3>
+                <p class="ajwa-text ajwa-text--sm ajwa-text--muted" data-fade>A magnificent venue with crystal amber-colored lightings and touches of Turkish-Islamic arts, Zeferan is situated on the top floor and offers panoramic views of the Old Town and the Sea of Marmara. The cuisine is predominantly Azerbaijani &mdash; a diverse range of rice dishes, vegetable and pickle roasts and an abundance of greens and grilled meat.</p>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/restaurant-services/zeferan-restaurant.5.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">More detail</span></a>
+              </div>
+              <div class="lp-col">
+                <div class="lp-figure" data-clip style="width: 100%;">
+                  <div data-parallax><img src="./img/real-feijoa.jpg" alt="Feijoa Pâtisserie" loading="lazy" /></div>
+                </div>
+                <h3 class="ajwa-heading ajwa-heading--sm" data-fade>Feijoa P&acirc;tisserie</h3>
+                <p class="ajwa-text ajwa-text--sm ajwa-text--muted" data-fade>Located in the lobby of AJWA Sultanahmet, Feijoa P&acirc;tisserie adds a touch of sweetness to your day with its carefully crafted desserts.</p>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/patisserie-services/feijoa-patisserie.9.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">More detail</span></a>
+              </div>
+              <div class="lp-col">
+                <div class="lp-figure" data-clip style="width: 100%;">
+                  <div data-parallax><img src="./img/real-inroom.jpg" alt="In-Room Dining" loading="lazy" /></div>
+                </div>
+                <h3 class="ajwa-heading ajwa-heading--sm" data-fade>In-Room Dining</h3>
+                <p class="ajwa-text ajwa-text--sm ajwa-text--muted" data-fade>After a long and tiring day of exploring the many wonders of İstanbul, why not kick back and enjoy a wonderful selection of freshly prepared Turkish dishes from our rich In-Room Dining Menu?</p>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/in-room-dining-services/in-room-dining.1013.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">More detail</span></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Spa -->
+        <section id="spa" class="lp-section">
+          <div class="lp-wrap">
+            <div class="lp-feature">
+              <div class="lp-figure" data-clip>
+                <div data-parallax><img src="./img/real-afiya.jpg" alt="Afiya Spa at AJWA Sultanahmet" loading="lazy" /></div>
+              </div>
+              <div class="lp-feature__body">
+                <p class="lp-eyebrow" data-fade>Afiya Spa</p>
+                <h2 class="ajwa-heading ajwa-heading--lg" data-reveal>
+                  <span class="lp-mask"><span data-line>Start your journey</span></span>
+                  <span class="lp-mask"><span data-line>to wellness</span></span>
+                </h2>
+                <p class="ajwa-text ajwa-text--md ajwa-text--measure" data-fade>Afiya Spa and the marble hammam continue a bathing tradition as old as the Old City itself &mdash; a quiet counterpoint to a day among the monuments of the historical peninsula.</p>
+                <a class="ajwa-link" href="https://www.ajwa.com.tr/sultanahmet/spa-services/afiya-spa.6.aspx" target="_blank" rel="noopener" data-fade><span class="ajwa-link__label">More detail</span></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Special Offers -->
+        <section id="offers" class="lp-section" style="background: var(--ajwa-bg-sunken);">
+          <div class="lp-wrap" style="display: grid; gap: var(--ajwa-space-2xl);">
+            <div style="display: grid; gap: var(--ajwa-space-md);">
+              <p class="lp-eyebrow" data-fade>Special Offers</p>
+              <h2 class="ajwa-heading ajwa-heading--lg" data-reveal>
+                <span class="lp-mask"><span data-line>Stay a little longer</span></span>
+              </h2>
+            </div>
+            <div class="lp-offers">
+              <article class="ajwa-offer-card" data-fade>
+                <div class="ajwa-offer-card__media lp-offer-media"><img class="ajwa-offer-card__img" src="./img/real-offer-lastminute.jpg" alt="" loading="lazy" /></div>
+                <div class="ajwa-offer-card__body">
+                  <div class="ajwa-offer-card__content">
+                    <h3 class="ajwa-heading ajwa-heading--md ajwa-offer-card__title">Last Minute Escape</h3>
+                    <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-offer-card__desc">Reserve now and indulge in the timeless elegance of AJWA Sultanahmet, with an exclusive 20% savings available for a limited time.</p>
+                  </div>
+                  <div class="ajwa-offer-card__footer">
+                    <a class="ajwa-link ajwa-offer-card__cta" href="https://www.ajwa.com.tr/sultanahmet/special-offers/last-minute-escape.1048.aspx" target="_blank" rel="noopener"><span class="ajwa-link__label">More detail</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="ajwa-offer-card" data-fade>
+                <div class="ajwa-offer-card__media lp-offer-media"><img class="ajwa-offer-card__img" src="./img/real-offer-early.jpg" alt="" loading="lazy" /></div>
+                <div class="ajwa-offer-card__body">
+                  <div class="ajwa-offer-card__content">
+                    <h3 class="ajwa-heading ajwa-heading--md ajwa-offer-card__title">Book Early and Save</h3>
+                    <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-offer-card__desc">Plan your stay at AJWA Sultanahmet at least 15 days in advance and enjoy exclusive early booking privileges in our distinguished rooms, where luxury and elegance meet.</p>
+                  </div>
+                  <div class="ajwa-offer-card__footer">
+                    <a class="ajwa-link ajwa-offer-card__cta" href="https://www.ajwa.com.tr/sultanahmet/special-offers/book-early-and-save.1045.aspx" target="_blank" rel="noopener"><span class="ajwa-link__label">More detail</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="ajwa-offer-card" data-fade>
+                <div class="ajwa-offer-card__media lp-offer-media"><img class="ajwa-offer-card__img" src="./img/mansion.jpg" alt="" loading="lazy" /></div>
+                <div class="ajwa-offer-card__body">
+                  <div class="ajwa-offer-card__content">
+                    <h3 class="ajwa-heading ajwa-heading--md ajwa-offer-card__title">Mansions Offer with Luxury VIP Transfer</h3>
+                    <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-offer-card__desc">Experience the privilege of staying at the Clock House and White Mansion &mdash; reserve your getaway today.</p>
+                  </div>
+                  <div class="ajwa-offer-card__footer">
+                    <a class="ajwa-link ajwa-offer-card__cta" href="https://www.ajwa.com.tr/sultanahmet/special-offers/mansions-offer-with-luxury-vip-transfer.1044.aspx" target="_blank" rel="noopener"><span class="ajwa-link__label">More detail</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="ajwa-offer-card" data-fade>
+                <div class="ajwa-offer-card__media lp-offer-media"><img class="ajwa-offer-card__img" src="./img/real-offer-wellness.jpg" alt="" loading="lazy" /></div>
+                <div class="ajwa-offer-card__body">
+                  <div class="ajwa-offer-card__content">
+                    <h3 class="ajwa-heading ajwa-heading--md ajwa-offer-card__title">Wellness Escape Offer</h3>
+                    <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-offer-card__desc">Enjoy a 1-person massage as an exclusive AJWA privilege when you stay for 3 nights; a second guest can benefit with a 20% discount from the menu.</p>
+                  </div>
+                  <div class="ajwa-offer-card__footer">
+                    <a class="ajwa-link ajwa-offer-card__cta" href="https://www.ajwa.com.tr/sultanahmet/special-offers/wellness-escape-offer.1047.aspx" target="_blank" rel="noopener"><span class="ajwa-link__label">More detail</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="ajwa-offer-card" data-fade>
+                <div class="ajwa-offer-card__media lp-offer-media"><img class="ajwa-offer-card__img" src="./img/offer-dine.jpg" alt="" loading="lazy" /></div>
+                <div class="ajwa-offer-card__body">
+                  <div class="ajwa-offer-card__content">
+                    <h3 class="ajwa-heading ajwa-heading--md ajwa-offer-card__title">Stay &amp; Dine</h3>
+                    <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-offer-card__desc">Stay in any luxurious room and enjoy breakfast included, followed by a dinner experience at Zeferan Restaurant with breathtaking views of the Marmara Sea.</p>
+                    <ul class="ajwa-offer-card__meta">
+                      <li class="ajwa-offer-card__meta-row">Complimentary breakfast</li>
+                      <li class="ajwa-offer-card__meta-row">3 course dinner</li>
+                      <li class="ajwa-offer-card__meta-row">Book 2 days in advance</li>
+                    </ul>
+                  </div>
+                  <div class="ajwa-offer-card__footer">
+                    <a class="ajwa-link ajwa-offer-card__cta" href="https://www.ajwa.com.tr/sultanahmet/special-offers/stay-dine.1043.aspx" target="_blank" rel="noopener"><span class="ajwa-link__label">More detail</span></a>
+                  </div>
+                </div>
+              </article>
+              <article class="ajwa-offer-card" data-fade>
+                <div class="ajwa-offer-card__media lp-offer-media"><img class="ajwa-offer-card__img" src="./img/offer-honeymoon.jpg" alt="" loading="lazy" /></div>
+                <div class="ajwa-offer-card__body">
+                  <div class="ajwa-offer-card__content">
+                    <h3 class="ajwa-heading ajwa-heading--md ajwa-offer-card__title">Honeymoon in Luxury</h3>
+                    <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-offer-card__desc">Book your stay at AJWA Sultanahmet and immerse yourself in a world where timeless elegance and refined luxury meet Istanbul&rsquo;s rich historical heritage.</p>
+                  </div>
+                  <div class="ajwa-offer-card__footer">
+                    <a class="ajwa-link ajwa-offer-card__cta" href="https://www.ajwa.com.tr/sultanahmet/special-offers/honeymoon-in-luxury.1046.aspx" target="_blank" rel="noopener"><span class="ajwa-link__label">More detail</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Location -->
+        <section id="location" class="lp-section">
+          <div class="lp-wrap" style="display: grid; justify-items: center; gap: var(--ajwa-space-xl); text-align: center;">
+            <p class="lp-eyebrow" data-fade>The Neighbourhood</p>
+            <h2 class="ajwa-heading ajwa-heading--lg ajwa-heading--center" data-reveal>
+              <span class="lp-mask"><span data-line>The heart of Istanbul&rsquo;s</span></span>
+              <span class="lp-mask"><span data-line>historical peninsula</span></span>
+            </h2>
+            <p class="ajwa-text ajwa-text--md ajwa-text--center ajwa-text--measure" data-fade>Piyerloti Caddesi No:30, Sultanahmet, 34126 Istanbul &mdash; T&uuml;rkiye &middot; +90 212 638 22 00</p>
+            <div data-fade>
+              <div class="ajwa-stat-strip ajwa-stat-strip--center">
+                <ul class="ajwa-stat-strip__list">
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">8&prime;</span><span class="ajwa-stat-strip__label">Blue Mosque</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">13&prime;</span><span class="ajwa-stat-strip__label">Hagia Sophia</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">12&prime;</span><span class="ajwa-stat-strip__label">Basilica Cistern</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">8&prime;</span><span class="ajwa-stat-strip__label">Grand Bazaar</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">17&prime;</span><span class="ajwa-stat-strip__label">Topkap&#305; Palace</span></li>
+                  <li class="ajwa-stat-strip__item"><span class="ajwa-stat-strip__value">18&prime;</span><span class="ajwa-stat-strip__label">Spice Bazaar</span></li>
+                </ul>
+              </div>
+            </div>
+            <p class="ajwa-text ajwa-text--sm ajwa-text--muted ajwa-text--center" data-fade>Minutes on foot &middot; Nearby airports: Istanbul Airport 47 km &middot; Sabiha G&ouml;k&ccedil;en 45 km</p>
+          </div>
+        </section>
+
+        <!-- Booking -->
+        <section id="book" class="lp-section lp-book ajwa-scheme-dark" style="background: var(--ajwa-bg); color: var(--ajwa-ink);">
+          <div class="lp-wrap lp-book__inner">
+            <p class="lp-eyebrow" data-fade>Reservations</p>
+            <h2 class="ajwa-heading ajwa-heading--display-2 ajwa-heading--center" data-reveal>
+              <span class="lp-mask"><span data-line>Book direct,</span></span>
+              <span class="lp-mask"><span data-line>best rates.</span></span>
+            </h2>
+            <div class="lp-book__actions" data-fade>
+              <a class="lp-btn-gold" href="https://www.ajwa.com.tr/sultanahmet/mainpage.aspx" target="_blank" rel="noopener">Book now</a>
+              <a class="lp-navlink lp-navlink--cta" href="https://www.ajwa.com.tr/sultanahmet/contact.aspx" target="_blank" rel="noopener">Contact us</a>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /.lp-page -->
+
+      <div class="lp-footer-spacer" data-footer-spacer aria-hidden="true"></div>
+
+      <!-- Fixed footer, revealed as the page lifts away -->
+      <footer class="lp-footer">
+        <div class="lp-footer__inner" data-footer-inner>
+          <div class="lp-footer__reveal" data-footer-reveal>
+            <div class="lp-footer__addresses">
+              <div class="lp-footer__addr">
+                <p class="lp-eyebrow">AJWA Sultanahmet</p>
+                <p>Piyerloti Caddesi No:30, Sultanahmet<br />34126 İstanbul, T&uuml;rkiye<br />+90 212 638 22 00</p>
+              </div>
+              <div class="lp-footer__addr">
+                <p class="lp-eyebrow">AJWA Homes Istanbul</p>
+                <p>The White Mansion &amp; The Clock House<br />K&uuml;&ccedil;&uuml;k Ayasofya, Fatih/İstanbul<br />+90 212 638 22 00</p>
+              </div>
+            </div>
+            <img class="lp-footer__logo" src="./img/sultanahmet-map.svg" alt="AJWA Sultanahmet — map of the historical peninsula" />
+          </div>
+
+          <div class="lp-footer__band">
+            <div class="lp-footer__band-inner">
+              <div class="lp-footer__linkrows">
+                <div class="lp-footer__linkrow">
+                  <span class="lp-eyebrow">Explore</span>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/experience/about-this-hotel.1.aspx" target="_blank" rel="noopener">About this Hotel</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/gallery.aspx" target="_blank" rel="noopener">Gallery</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/meeting.aspx" target="_blank" rel="noopener">Meeting Facilities</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/concierge.aspx" target="_blank" rel="noopener">Concierge &amp; Services</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/butler-service-services.6.aspx" target="_blank" rel="noopener">Butler Service</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/contact.aspx" target="_blank" rel="noopener">Contact</a>
+                </div>
+                <div class="lp-footer__linkrow">
+                  <span class="lp-eyebrow">Follow</span>
+                  <a class="lp-navlink" href="https://www.instagram.com/ajwasultanahmet" target="_blank" rel="noopener">Instagram</a>
+                  <a class="lp-navlink" href="https://www.facebook.com/ajwahotelsultanahmet" target="_blank" rel="noopener">Facebook</a>
+                  <a class="lp-navlink" href="https://www.youtube.com/ajwasultanahmet" target="_blank" rel="noopener">YouTube</a>
+                  <a class="lp-navlink" href="https://twitter.com/ajwasultanahmet" target="_blank" rel="noopener">X</a>
+                </div>
+                <div class="lp-footer__linkrow">
+                  <span class="lp-eyebrow">Destinations</span>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/mainpage.aspx" target="_blank" rel="noopener">AJWA Sultanahmet</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/cappadocia/mainpage.aspx" target="_blank" rel="noopener">AJWA Cappadocia</a>
+                  <a class="lp-navlink" href="https://www.ajwa.com.tr/sultanahmet/ajwa-homes.aspx" target="_blank" rel="noopener">AJWA Homes Istanbul</a>
+                </div>
+              </div>
+              <div class="lp-footer__legal">
+                <p>&copy; AJWA Hotels 2026. All Rights Reserved.</p>
+                <a class="lp-navlink lp-navlink--cta" href="#top" data-to-top>Back to top</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    <script src="./vendor/lenis.min.js"></script>
+    <script src="./vendor/gsap.min.js"></script>
+    <script src="./vendor/ScrollTrigger.min.js"></script>
+    <script src="./vendor/CustomEase.min.js"></script>
+    <script>
+      // AJWA scroll landing — Lenis smooth scroll, GSAP reveals, logo preloader,
+      // Reschio-style footer reveal. Vanilla port of the reference page's logic.
+      (function () {
+        var SMOOTHNESS = 0.09;
+        var REVEAL_DURATION = 1.15;
+        var PARALLAX = true;
+        var INTRO = true;
+
+        function ready(fn) {
+          if (document.readyState !== 'loading') fn();
+          else document.addEventListener('DOMContentLoaded', fn);
+        }
+
+        ready(function () {
+          // Safety: never trap the page behind the loader if the libraries fail.
+          setTimeout(function () {
+            var pre = document.querySelector('[data-preloader]');
+            if (pre && !window.__ajwaIntroDone) {
+              pre.style.display = 'none';
+              window.__ajwaIntroDone = true;
+            }
+          }, 9000);
+
+          if (!(window.Lenis && window.gsap && window.ScrollTrigger)) return;
+          var gsap = window.gsap;
+          gsap.registerPlugin(window.ScrollTrigger);
+          if (window.CustomEase) {
+            try {
+              gsap.registerPlugin(window.CustomEase);
+              window.CustomEase.create('ajwaFlow', '0.625, 0.05, 0, 1'); // house bezier
+            } catch (e) { /* fall back to built-in eases */ }
+          }
+
+          var lenis = new window.Lenis({ lerp: SMOOTHNESS });
+          window.__ajwaLenis = lenis;
+          lenis.on('scroll', window.ScrollTrigger.update);
+          gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+          gsap.ticker.lagSmoothing(0);
+
+          // Smooth anchor scrolling for header nav + back-to-top.
+          document.querySelectorAll('[data-scroll-to]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+              var target = document.querySelector(a.getAttribute('href'));
+              if (!target) return;
+              e.preventDefault();
+              lenis.scrollTo(target, { duration: 1.4 });
+            });
+          });
+          var toTop = document.querySelector('[data-to-top]');
+          if (toTop) toTop.addEventListener('click', function (e) {
+            e.preventDefault();
+            lenis.scrollTo(0, { duration: 1.4 });
+          });
+
+          // Footer reveal: fixed footer behind the page, blur -> clear as the
+          // page lifts away. Spacer sized to exactly match the footer height.
+          var footerEl = document.querySelector('.lp-footer');
+          var spacer = document.querySelector('[data-footer-spacer]');
+          function sizeSpacer() {
+            if (footerEl && spacer) spacer.style.height = footerEl.offsetHeight + 'px';
+          }
+          function resync() {
+            requestAnimationFrame(function () { sizeSpacer(); window.ScrollTrigger.refresh(); });
+          }
+          sizeSpacer();
+          if (footerEl && 'ResizeObserver' in window) {
+            new ResizeObserver(resync).observe(footerEl);
+          }
+          var footerImg = footerEl && footerEl.querySelector('img');
+          if (footerImg && !footerImg.complete) footerImg.addEventListener('load', resync, { once: true });
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(resync);
+          window.addEventListener('resize', resync);
+
+          var preloader = document.querySelector('[data-preloader]');
+
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (preloader) preloader.style.display = 'none';
+            window.__ajwaIntroDone = true;
+            return;
+          }
+
+          // Only the map + addresses blur in; the link band below stays put.
+          var footerReveal = document.querySelector('[data-footer-reveal]');
+          if (footerReveal && spacer) {
+            gsap.fromTo(footerReveal,
+              { filter: 'blur(22px)', autoAlpha: 0.1, yPercent: 16 },
+              { filter: 'blur(0px)', autoAlpha: 1, yPercent: 0, ease: 'none',
+                scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: true } });
+          }
+
+          document.querySelectorAll('[data-reveal]').forEach(function (group) {
+            var lines = group.querySelectorAll('[data-line]');
+            if (!lines.length) return;
+            gsap.from(lines, {
+              yPercent: 110, duration: REVEAL_DURATION, ease: 'expo.out', stagger: 0.14,
+              scrollTrigger: { trigger: group, start: 'top 82%', once: true }
+            });
+          });
+
+          // Intro: logo loader that zooms into the hero media. Hero content +
+          // media start hidden/zoomed; the intro timeline plays them as the
+          // loader lifts.
+          var heroLines = document.querySelectorAll('[data-hero] [data-line]');
+          var heroMedia = document.querySelector('[data-hero-media]');
+          gsap.set(heroLines, { yPercent: 110 });
+          if (heroMedia) gsap.set(heroMedia, { scale: 1.25, transformOrigin: '50% 50%' });
+          function playHeroLines() {
+            gsap.to(heroLines, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: 0.14 });
+          }
+          function playHeroMedia() {
+            if (heroMedia) gsap.to(heroMedia, { scale: 1, duration: 2.4, ease: 'expo.out' });
+          }
+
+          if (INTRO && preloader && !window.__ajwaIntroDone) {
+            lenis.stop();
+            window.scrollTo(0, 0);
+            var gold = preloader.querySelector('[data-preloader-gold]');
+            var cover = preloader.querySelector('[data-preloader-cover]');
+            var tl = gsap.timeline();
+            // Loading: the gold drains down the logo behind a soft feathered
+            // waterline, paced like steady loading progress.
+            if (gold) {
+              var drain = { w: -8 };
+              tl.to(drain, {
+                w: 108, duration: 2.4, ease: 'sine.inOut',
+                onUpdate: function () {
+                  var g = 'linear-gradient(to bottom, transparent ' + (drain.w - 6).toFixed(2) + '%, #000 ' + (drain.w + 6).toFixed(2) + '%)';
+                  var mi = 'var(--ajwa-logo-mask), ' + g;
+                  gold.style.webkitMaskImage = mi; gold.style.maskImage = mi;
+                }
+              });
+            }
+            tl.addLabel('drained');
+            tl.add(playHeroMedia, 'drained-=0.2');
+            // Zoom by animating mask-size (not transform): the SVG mask is
+            // re-rasterized every frame, so the emblem edge stays vector-crisp.
+            // Geometry keeps the emblem pod fixed on screen so we dive straight
+            // through it.
+            if (cover) {
+              var ASPECT = 1.2628, PODX = 0.501, PODY = 0.161;
+              var zoomState = { s: 1 };
+              tl.to(zoomState, {
+                s: 150, duration: 2.9, ease: 'power1.inOut',
+                onUpdate: function () {
+                  var ew = cover.clientWidth || window.innerWidth;
+                  var eh = cover.clientHeight || window.innerHeight;
+                  var baseW = Math.min(Math.max(120, window.innerWidth * 0.15), 180);
+                  var baseH = baseW * ASPECT;
+                  var px = ew / 2 + (PODX - 0.5) * baseW;
+                  var py = eh / 2 - (0.5 - PODY) * baseH;
+                  var w = baseW * zoomState.s, h = baseH * zoomState.s;
+                  var pos = (px - PODX * w).toFixed(1) + 'px ' + (py - PODY * h).toFixed(1) + 'px, center';
+                  var size = w.toFixed(1) + 'px ' + h.toFixed(1) + 'px, 100% 100%';
+                  cover.style.webkitMaskPosition = pos; cover.style.maskPosition = pos;
+                  cover.style.webkitMaskSize = size; cover.style.maskSize = size;
+                }
+              }, 'drained');
+            }
+            tl.add(playHeroLines, '-=0.45');
+            tl.set(preloader, { display: 'none' });
+            tl.add(function () { window.__ajwaIntroDone = true; lenis.start(); });
+          } else {
+            if (preloader) preloader.style.display = 'none';
+            window.__ajwaIntroDone = true;
+            gsap.set(heroLines, { yPercent: 0 });
+            if (heroMedia) gsap.set(heroMedia, { scale: 1 });
+          }
+
+          document.querySelectorAll('[data-fade]').forEach(function (el) {
+            gsap.from(el, {
+              opacity: 0, y: 28, duration: REVEAL_DURATION, ease: 'expo.out',
+              scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+            });
+          });
+
+          if (PARALLAX) {
+            document.querySelectorAll('[data-parallax]').forEach(function (el) {
+              gsap.fromTo(el, { yPercent: -6 }, {
+                yPercent: 6, ease: 'none',
+                scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+              });
+            });
+          }
+
+          // Arch opening (nueve.gr-style): the narrow arched frame widens to
+          // full bleed and its crown squares off, scrubbed to the scroll.
+          var archFrame = document.querySelector('[data-arch-frame]');
+          if (archFrame) {
+            gsap.to(archFrame, {
+              width: '100%', borderTopLeftRadius: 0, borderTopRightRadius: 0, ease: 'none',
+              scrollTrigger: { trigger: '[data-arch]', start: 'top 80%', end: 'center 45%', scrub: 1 }
+            });
+          }
+
+          // Figures unveil from an inset frame as they cross the viewport
+          // (Reschio-style), composing with the inner parallax drift.
+          document.querySelectorAll('[data-clip]').forEach(function (el) {
+            gsap.fromTo(el,
+              { clipPath: 'inset(12% 8% 12% 8%)' },
+              { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none',
+                scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 40%', scrub: 1 } });
+          });
+
+          // Marquee headline (nueve.gr-style): endless drift left; scrolling
+          // leans on the tempo, then it settles back to its idle pace.
+          var mTrack = document.querySelector('[data-marquee-track]');
+          if (mTrack) {
+            var mLoop = gsap.to(mTrack, { xPercent: -50, ease: 'none', duration: 34, repeat: -1 });
+            window.ScrollTrigger.create({
+              onUpdate: function (self) {
+                var boost = 1 + Math.min(Math.abs(self.getVelocity()) / 800, 3);
+                gsap.timeline({ overwrite: true, defaults: { ease: 'power1.out' } })
+                  .to(mLoop, { timeScale: boost, duration: 0.25 })
+                  .to(mLoop, { timeScale: 1, duration: 1.4 });
+              }
+            });
+          }
+
+          // Hero exit: gentle drift + zoom as the opener leaves the frame.
+          // Targets the inner media wrapper so it composes with the intro's
+          // outer-wrapper zoom.
+          var heroExit = document.querySelector('[data-hero-exit]');
+          if (heroExit) {
+            gsap.to(heroExit, {
+              yPercent: 12, scale: 1.08, transformOrigin: '50% 100%', ease: 'none',
+              scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true }
+            });
+          }
+
+          window.ScrollTrigger.refresh();
+        });
+      })();
+    </script>
+  </body>
+</html>

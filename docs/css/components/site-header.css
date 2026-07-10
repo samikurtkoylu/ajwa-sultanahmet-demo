@@ -1,0 +1,162 @@
+.ajwa-site-header {
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+
+.ajwa-site-header--solid {
+  background: var(--ajwa-bg);
+  border-bottom: 1px solid var(--ajwa-hairline);
+}
+
+/* Transparent tone floats over a Hero; the host keeps the page underneath. */
+.ajwa-site-header--transparent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  border-bottom: none;
+}
+
+/* Three balanced zones so the brand stays optically centered. */
+.ajwa-site-header__row {
+  display: flex;
+  align-items: center;
+  min-height: 5rem;
+  gap: var(--ajwa-space-md);
+}
+
+.ajwa-site-header__start,
+.ajwa-site-header__end {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ajwa-space-md);
+  min-width: 0;
+}
+
+.ajwa-site-header__end {
+  justify-content: flex-end;
+}
+
+/* Hamburger — two hairline bars, 44px hit area. */
+.ajwa-site-header__menu {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--ajwa-space-2xs);
+  width: 44px;
+  height: 44px;
+  padding: 0 0.625rem;
+  margin-inline-start: -0.625rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.ajwa-site-header__menu-bar {
+  display: block;
+  height: 1px;
+  background: var(--ajwa-ink);
+  transition: transform var(--ajwa-dur-fast) var(--ajwa-ease);
+}
+
+.ajwa-site-header__menu:hover .ajwa-site-header__menu-bar:first-child {
+  transform: translateY(-2px);
+}
+
+.ajwa-site-header__menu:hover .ajwa-site-header__menu-bar:last-child {
+  transform: translateY(2px);
+}
+
+/* Primary nav — tiny tracked uppercase links, desktop only. */
+.ajwa-site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--ajwa-space-md);
+}
+
+.ajwa-site-header__nav .ajwa-link {
+  font-size: var(--ajwa-text-label-sm);
+  white-space: nowrap;
+}
+
+@media (max-width: 899.98px) {
+  .ajwa-site-header__nav {
+    display: none;
+  }
+}
+
+/* Centered brand block. */
+.ajwa-site-header__brand {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.ajwa-site-header__wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: var(--ajwa-font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ajwa-ink);
+  /* Re-center the wide tracking after the trailing letter-space. */
+  margin-inline-end: -0.18em;
+}
+
+.ajwa-site-header__tagline {
+  font-family: var(--ajwa-font-sans);
+  font-weight: 500;
+  font-size: 0.5625rem; /* 9px */
+  letter-spacing: var(--ajwa-track-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--ajwa-ink-muted);
+  margin-top: 0.4375rem;
+}
+
+/* Phones: an optically centered brand cannot clear a Reserve button on a
+   360px row, so the brand sits beside the hamburger instead and the language
+   list moves into the host's off-canvas menu. */
+@media (max-width: 599.98px) {
+  .ajwa-site-header__end .ajwa-lang-switcher {
+    display: none;
+  }
+
+  .ajwa-site-header__row {
+    gap: var(--ajwa-space-sm);
+  }
+
+  .ajwa-site-header__start {
+    flex: 0 0 auto;
+  }
+
+  .ajwa-site-header__brand {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+
+  .ajwa-site-header__wordmark {
+    align-items: flex-start;
+    text-align: start;
+    font-size: 1.25rem;
+  }
+
+  .ajwa-site-header__tagline {
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+    margin-top: 0.3125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}

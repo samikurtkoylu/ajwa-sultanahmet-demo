@@ -1,0 +1,28 @@
+.ajwa-heading {
+  font-family: var(--ajwa-font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--ajwa-track-display);
+  line-height: var(--ajwa-leading-display);
+  color: var(--ajwa-ink);
+  text-wrap: balance;
+}
+
+.ajwa-heading--display-1 { font-size: var(--ajwa-text-display-1); }
+.ajwa-heading--display-2 { font-size: var(--ajwa-text-display-2); }
+.ajwa-heading--lg { font-size: var(--ajwa-text-h-lg); }
+.ajwa-heading--md { font-size: var(--ajwa-text-h-md); line-height: 1.05; }
+.ajwa-heading--sm {
+  font-size: var(--ajwa-text-h-sm);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.ajwa-heading--center { text-align: center; }
+
+.ajwa-heading--italic {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.15;
+}

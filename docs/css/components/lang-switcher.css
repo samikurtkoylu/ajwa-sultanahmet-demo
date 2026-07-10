@@ -1,0 +1,47 @@
+.ajwa-lang-switcher__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.ajwa-lang-switcher__item {
+  display: flex;
+  align-items: center;
+}
+
+/* Pipe separator between languages — decorative, hidden from AT via the
+   alt-text form of `content`, and never selectable. */
+.ajwa-lang-switcher__item + .ajwa-lang-switcher__item::before {
+  content: '|';
+  content: '|' / '';
+  color: var(--ajwa-hairline);
+  margin-inline: var(--ajwa-space-xs);
+  user-select: none;
+}
+
+.ajwa-lang-switcher__lang {
+  font-family: var(--ajwa-font-sans);
+  font-weight: 500;
+  font-size: var(--ajwa-text-label-sm);
+  letter-spacing: var(--ajwa-track-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  color: var(--ajwa-ink-muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color var(--ajwa-dur-fast) var(--ajwa-ease);
+}
+
+.ajwa-lang-switcher__lang:hover {
+  color: var(--ajwa-ink);
+}
+
+.ajwa-lang-switcher__lang--active {
+  color: var(--ajwa-ink);
+  cursor: default;
+}

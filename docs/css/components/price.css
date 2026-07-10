@@ -1,0 +1,40 @@
+.ajwa-price {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--ajwa-space-2xs);
+}
+
+.ajwa-price__prefix {
+  font-family: var(--ajwa-font-sans);
+  font-size: var(--ajwa-text-label-sm);
+  font-weight: 500;
+  letter-spacing: var(--ajwa-track-label);
+  text-transform: uppercase;
+  color: var(--ajwa-ink-muted);
+}
+
+.ajwa-price__amount {
+  font-family: var(--ajwa-font-display);
+  letter-spacing: var(--ajwa-track-display);
+  line-height: 1;
+  color: var(--ajwa-ink);
+}
+
+/* Amount scale — fixed steps, deliberately not fluid. */
+.ajwa-price--sm .ajwa-price__amount { font-size: 1.25rem; }
+.ajwa-price--md .ajwa-price__amount { font-size: 1.75rem; }
+.ajwa-price--lg .ajwa-price__amount { font-size: 2.5rem; }
+
+.ajwa-price__unit {
+  font-family: var(--ajwa-font-sans);
+  font-size: var(--ajwa-text-body-sm);
+  color: var(--ajwa-ink-muted);
+}
+
+/* The figure and its unit read as one number — they never break apart,
+   even when a narrow card footer forces the prefix onto its own line. */
+.ajwa-price__amount,
+.ajwa-price__unit {
+  white-space: nowrap;
+}
