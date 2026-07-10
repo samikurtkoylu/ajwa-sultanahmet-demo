@@ -1,0 +1,23 @@
+{
+  "projectId": "7e233a88-3bfc-4acb-84d3-83bd39ddcc58",
+  "shape": "package",
+  "pkg": "@ajwa/design-system",
+  "globalName": "AjwaDS",
+  "buildCmd": "npm run build",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": "dist/ajwa.css",
+  "tokensGlob": "css/tokens.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "Button": { "cardMode": "column" },
+    "Hero": { "cardMode": "column" },
+    "SiteHeader": { "cardMode": "column" },
+    "SiteFooter": { "cardMode": "column" },
+    "FooterCTA": { "cardMode": "column" },
+    "BookingStrip": { "cardMode": "column" },
+    "StayCard": { "cardMode": "column" },
+    "PatternDivider": { "cardMode": "column" },
+    "AjwaProvider": { "cardMode": "column" }
+  }
+}

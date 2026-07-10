@@ -27,7 +27,9 @@
     "*.css"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "tsup",
+    "build:css": "esbuild styles.css --bundle --outfile=dist/ajwa.css --loader:.woff2=file --loader:.woff=file --loader:.ttf=file --asset-names=fonts/[name]",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -37,6 +39,7 @@
   "devDependencies": {
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "esbuild": "^0.28.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsup": "^8.3.5",
