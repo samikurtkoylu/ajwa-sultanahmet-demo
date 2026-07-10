@@ -115,15 +115,20 @@
       /* Marquee headline (nueve.gr-style): one endless line, fading out toward
          the edges; scroll velocity leans on the tempo. */
       .lp-marquee {
-        width: calc(100% + 2 * var(--ajwa-space-lg));
-        margin-inline: calc(-1 * var(--ajwa-space-lg));
+        width: 100%;
         font-size: calc(var(--ajwa-text-display-1) * 0.75);
         overflow: hidden; white-space: nowrap;
-        -webkit-mask-image: linear-gradient(to right, transparent, #000 23%, #000 77%, transparent);
-        mask-image: linear-gradient(to right, transparent, #000 23%, #000 77%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 30%, #000 70%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 30%, #000 70%, transparent);
       }
       .lp-marquee__track { display: inline-flex; width: max-content; will-change: transform; }
       .lp-marquee__item { display: inline-block; padding-right: 1.2em; }
+
+      /* Scroll-revealed per-character caption (arch → accommodation) */
+      .lp-arch__caption { max-width: 32rem; }
+      .lp-arch__caption .lp-word { display: inline-block; }
+      .lp-arch__caption .lp-char { display: inline-block; will-change: transform, opacity, filter; }
+      .lp-arch__divider { width: min(340px, 62%); margin-top: var(--ajwa-space-md); }
       @media (prefers-reduced-motion: reduce) {
         .lp-marquee { -webkit-mask-image: none; mask-image: none; }
       }
@@ -290,18 +295,19 @@
                  until it exists the aerial gate shot stands in. -->
             <img src="./img/entrance.jpg" onerror="this.onerror=null;this.src='./img/real-hotel.jpg'" alt="The entrance portal of AJWA Sultanahmet" loading="lazy" />
           </div>
-          <p class="ajwa-text ajwa-text--serif ajwa-text--center ajwa-text--measure" data-fade>The finest features of Seljuk and Ottoman architecture, reborn in the heart of the Old City.</p>
+          <p class="ajwa-text ajwa-text--lg ajwa-text--serif ajwa-text--center ajwa-text--measure lp-arch__caption" data-chars>The finest features of Seljuk and Ottoman architecture, reborn in the heart of the Old City.</p>
+          <div class="ajwa-pattern-divider ajwa-pattern-divider--hairline lp-arch__divider" role="presentation" aria-hidden="true"></div>
         </section>
 
         <!-- Rooms & Suites -->
         <section id="rooms" class="lp-section">
           <div class="lp-wrap">
-            <div style="display: grid; gap: var(--ajwa-space-md); margin-bottom: var(--ajwa-space-2xl);">
+            <div style="display: grid; justify-items: center; text-align: center; gap: var(--ajwa-space-md); margin-bottom: var(--ajwa-space-2xl);">
               <p class="lp-eyebrow" data-fade>Accommodation</p>
-              <h2 class="ajwa-heading ajwa-heading--lg" data-reveal>
+              <h2 class="ajwa-heading ajwa-heading--lg ajwa-heading--center" data-reveal>
                 <span class="lp-mask"><span data-line>Rooms &amp; Suites</span></span>
               </h2>
-              <p class="ajwa-text ajwa-text--lg ajwa-text--serif ajwa-text--measure" data-fade>The rooms of AJWA Sultanahmet were curated with &ldquo;a sense of place&rdquo; in mind, with design features and details that genuinely reflect the culture and traditions of this historic city. Accessible rooms are also available on request.</p>
+              <p class="ajwa-text ajwa-text--lg ajwa-text--serif ajwa-text--measure ajwa-text--center" data-fade>The rooms of AJWA Sultanahmet were curated with &ldquo;a sense of place&rdquo; in mind, with design features and details that genuinely reflect the culture and traditions of this historic city. Accessible rooms are also available on request.</p>
             </div>
 
             <!-- 01 Deluxe Room -->
@@ -765,49 +771,87 @@
             window.scrollTo(0, 0);
             var gold = preloader.querySelector('[data-preloader-gold]');
             var cover = preloader.querySelector('[data-preloader-cover]');
-            var tl = gsap.timeline();
-            // Loading: the gold drains down the logo behind a soft feathered
-            // waterline, paced like steady loading progress.
-            if (gold) {
-              var drain = { w: -8 };
-              tl.to(drain, {
-                w: 108, duration: 2.4, ease: 'sine.inOut',
-                onUpdate: function () {
-                  var g = 'linear-gradient(to bottom, transparent ' + (drain.w - 6).toFixed(2) + '%, #000 ' + (drain.w + 6).toFixed(2) + '%)';
-                  var mi = 'var(--ajwa-logo-mask), ' + g;
-                  gold.style.webkitMaskImage = mi; gold.style.maskImage = mi;
-                }
-              });
+
+            // --- Real-time preload: the gold drain tracks how much of the page's
+            //     media (every <img> + the hero video) has actually loaded. We
+            //     never dive into the page until it is all in AND a minimum
+            //     duration has elapsed (so a warm cache still feels deliberate).
+            var video = document.querySelector('.lp-hero__video');
+            var urls = [];
+            document.querySelectorAll('img').forEach(function (im) {
+              var u = im.getAttribute('src'); if (u) urls.push(u);
+            });
+            var total = urls.length + (video ? 1 : 0);
+            var loaded = 0, target = 0;
+            var bump = function () { loaded++; target = total ? loaded / total : 1; };
+            urls.forEach(function (u) {
+              var im = new Image(), done = false;
+              var b = function () { if (done) return; done = true; bump(); };
+              im.onload = b; im.onerror = b; im.src = u;
+              if (im.complete) b();
+            });
+            if (video) {
+              if (video.readyState >= 4) bump();
+              else {
+                var vdone = false, vb = function () { if (vdone) return; vdone = true; bump(); };
+                video.addEventListener('canplaythrough', vb, { once: true });
+                video.addEventListener('error', vb, { once: true });
+                try { video.load(); } catch (e) {}
+              }
             }
-            tl.addLabel('drained');
-            tl.add(playHeroMedia, 'drained-=0.2');
-            // Zoom by animating mask-size (not transform): the SVG mask is
-            // re-rasterized every frame, so the emblem edge stays vector-crisp.
-            // Geometry keeps the emblem pod fixed on screen so we dive straight
-            // through it.
-            if (cover) {
-              var ASPECT = 1.2628, PODX = 0.501, PODY = 0.161;
-              var zoomState = { s: 1 };
-              tl.to(zoomState, {
-                s: 150, duration: 2.9, ease: 'power1.inOut',
-                onUpdate: function () {
-                  var ew = cover.clientWidth || window.innerWidth;
-                  var eh = cover.clientHeight || window.innerHeight;
-                  var baseW = Math.min(Math.max(120, window.innerWidth * 0.15), 180);
-                  var baseH = baseW * ASPECT;
-                  var px = ew / 2 + (PODX - 0.5) * baseW;
-                  var py = eh / 2 - (0.5 - PODY) * baseH;
-                  var w = baseW * zoomState.s, h = baseH * zoomState.s;
-                  var pos = (px - PODX * w).toFixed(1) + 'px ' + (py - PODY * h).toFixed(1) + 'px, center';
-                  var size = w.toFixed(1) + 'px ' + h.toFixed(1) + 'px, 100% 100%';
-                  cover.style.webkitMaskPosition = pos; cover.style.maskPosition = pos;
-                  cover.style.webkitMaskSize = size; cover.style.maskSize = size;
-                }
-              }, 'drained');
-            }
-            tl.add(playHeroLines, '-=0.45');
-            tl.set(preloader, { display: 'none' });
-            tl.add(function () { window.__ajwaIntroDone = true; lenis.start(); });
+
+            var applyGold = function (w) {
+              var g = 'linear-gradient(to bottom, transparent ' + (w - 6).toFixed(2) + '%, #000 ' + (w + 6).toFixed(2) + '%)';
+              var mi = 'var(--ajwa-logo-mask), ' + g;
+              gold.style.webkitMaskImage = mi; gold.style.maskImage = mi;
+            };
+            applyGold(-8);
+
+            var MIN_MS = 1800, MAX_MS = 15000;
+            var t0 = Date.now(), disp = 0, exited = false;
+            var startExit = function () {
+              if (exited) return; exited = true;
+              gsap.ticker.remove(loadTick);
+              applyGold(108);
+              var tl = gsap.timeline();
+              tl.add(playHeroMedia, 0);
+              if (cover) {
+                // Zoom by animating mask-size (not transform): the SVG mask is
+                // re-rasterized every frame, so the emblem edge stays vector-crisp.
+                var ASPECT = 1.2628, PODX = 0.501, PODY = 0.161;
+                var zoomState = { s: 1 };
+                tl.to(zoomState, {
+                  s: 150, duration: 2.9, ease: 'power1.inOut',
+                  onUpdate: function () {
+                    var ew = cover.clientWidth || window.innerWidth;
+                    var eh = cover.clientHeight || window.innerHeight;
+                    var baseW = Math.min(Math.max(120, window.innerWidth * 0.15), 180);
+                    var baseH = baseW * ASPECT;
+                    var px = ew / 2 + (PODX - 0.5) * baseW;
+                    var py = eh / 2 - (0.5 - PODY) * baseH;
+                    var w = baseW * zoomState.s, h = baseH * zoomState.s;
+                    var pos = (px - PODX * w).toFixed(1) + 'px ' + (py - PODY * h).toFixed(1) + 'px, center';
+                    var size = w.toFixed(1) + 'px ' + h.toFixed(1) + 'px, 100% 100%';
+                    cover.style.webkitMaskPosition = pos; cover.style.maskPosition = pos;
+                    cover.style.webkitMaskSize = size; cover.style.maskSize = size;
+                  }
+                }, 0);
+              }
+              tl.add(playHeroLines, 1.4);
+              tl.set(preloader, { display: 'none' });
+              tl.add(function () { window.__ajwaIntroDone = true; lenis.start(); });
+            };
+            var loadTick = function () {
+              if (exited) return;
+              var elapsed = Date.now() - t0;
+              var timeCap = Math.min(1, elapsed / MIN_MS);   // min-duration ramp
+              var goal = Math.min(target, timeCap);
+              if (elapsed >= MAX_MS) goal = 1;                // safety: never trap the user
+              disp += (goal - disp) * 0.12;                   // eased follow
+              applyGold(-8 + disp * 116);
+              if ((disp >= 0.995 && target >= 1 && elapsed >= MIN_MS) || elapsed >= MAX_MS) startExit();
+            };
+            gsap.ticker.add(loadTick);
           } else {
             if (preloader) preloader.style.display = 'none';
             window.__ajwaIntroDone = true;
@@ -819,6 +863,30 @@
             gsap.from(el, {
               opacity: 0, y: 28, duration: REVEAL_DURATION, ease: 'expo.out',
               scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+            });
+          });
+
+          // Per-character caption: split into words (kept whole) then chars,
+          // each character drifting up out of a blur as you scroll through it.
+          document.querySelectorAll('[data-chars]').forEach(function (el) {
+            var text = el.textContent;
+            el.setAttribute('aria-label', text);
+            el.textContent = '';
+            var words = text.split(' ');
+            words.forEach(function (word, wi) {
+              var wSpan = document.createElement('span');
+              wSpan.className = 'lp-word'; wSpan.setAttribute('aria-hidden', 'true');
+              for (var i = 0; i < word.length; i++) {
+                var c = document.createElement('span');
+                c.className = 'lp-char'; c.textContent = word[i];
+                wSpan.appendChild(c);
+              }
+              el.appendChild(wSpan);
+              if (wi < words.length - 1) el.appendChild(document.createTextNode(' '));
+            });
+            gsap.from(el.querySelectorAll('.lp-char'), {
+              opacity: 0, yPercent: 90, filter: 'blur(6px)', ease: 'power2.out', stagger: 0.035,
+              scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 42%', scrub: 1 }
             });
           });
 
