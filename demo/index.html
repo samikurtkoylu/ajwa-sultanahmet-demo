@@ -12,6 +12,9 @@
 
       html, body { margin: 0; padding: 0; }
       body { background: var(--ajwa-bg, #f4f1ea); }
+      /* Never allow a stray full-bleed element to open a horizontal scrollbar
+         (fixed header/footer/preloader are viewport-anchored, unaffected). */
+      .ajwa-root { overflow-x: clip; }
       html.lenis, html.lenis body { height: auto; }
       .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
@@ -116,12 +119,11 @@
         margin-inline: calc(-1 * var(--ajwa-space-lg));
         font-size: calc(var(--ajwa-text-display-1) * 0.75);
         overflow: hidden; white-space: nowrap;
-        -webkit-mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
-        mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 23%, #000 77%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 23%, #000 77%, transparent);
       }
       .lp-marquee__track { display: inline-flex; width: max-content; will-change: transform; }
       .lp-marquee__item { display: inline-block; padding-right: 1.2em; }
-      .lp-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
       @media (prefers-reduced-motion: reduce) {
         .lp-marquee { -webkit-mask-image: none; mask-image: none; }
       }
@@ -261,12 +263,11 @@
         <section class="lp-section">
           <div class="lp-manifesto">
             <p class="lp-eyebrow" data-fade>A Unique Experience</p>
-            <h1 class="ajwa-heading ajwa-heading--display-1 lp-marquee">
+            <h1 class="ajwa-heading ajwa-heading--display-1 lp-marquee" aria-label="More than a mere five-star hotel.">
               <span class="lp-marquee__track" data-marquee-track aria-hidden="true">
                 <span class="lp-marquee__item">More than a mere five-star hotel.</span>
                 <span class="lp-marquee__item">More than a mere five-star hotel.</span>
               </span>
-              <span class="lp-sr-only">More than a mere five-star hotel.</span>
             </h1>
             <p class="lp-manifesto__lead" data-fade>AJWA Sultanahmet offers serenity and gracious hospitality in settings akin to a private mansion. Adorned with exquisite mother-of-pearl furniture, silk Tabriz carpets, original artwork, unique marble work, hand-painted ceilings and specially commissioned tiles throughout its 61 rooms, suites and public areas, the hotel embraces all aspects of luxury hospitality with a halal approach.</p>
             <div data-fade>
