@@ -1,0 +1,64 @@
+.ajwa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  font-family: var(--ajwa-font-sans);
+  font-weight: 500;
+  font-size: var(--ajwa-text-label);
+  letter-spacing: var(--ajwa-track-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: var(--ajwa-radius-soft);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--ajwa-dur-fast) var(--ajwa-ease),
+    border-color var(--ajwa-dur-fast) var(--ajwa-ease),
+    color var(--ajwa-dur-fast) var(--ajwa-ease);
+}
+
+.ajwa-btn--md { padding: 1.0625rem 2rem 0.9375rem; }
+.ajwa-btn--sm { padding: 0.8125rem 1.375rem 0.6875rem; font-size: var(--ajwa-text-label-sm); }
+
+.ajwa-btn--full { width: 100%; }
+
+.ajwa-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Solid — dark brown fill; on dark schemes it flips to bone. */
+.ajwa-btn--solid {
+  background: var(--ajwa-brown-800);
+  color: var(--ajwa-bone-100);
+}
+.ajwa-btn--solid:hover:not(:disabled) { background: var(--ajwa-brown-900); }
+.ajwa-scheme-dark .ajwa-btn--solid {
+  background: var(--ajwa-bone-100);
+  color: var(--ajwa-brown-800);
+}
+.ajwa-scheme-dark .ajwa-btn--solid:hover:not(:disabled) { background: var(--ajwa-white); }
+
+/* Outline — hairline border on the current ink. */
+.ajwa-btn--outline {
+  background: transparent;
+  color: var(--ajwa-ink);
+  border-color: var(--ajwa-hairline-strong);
+}
+.ajwa-btn--outline:hover:not(:disabled) {
+  border-color: var(--ajwa-ink);
+}
+
+/* Gold outline — dark surfaces only (gold never fills a background). */
+.ajwa-btn--gold-outline {
+  background: transparent;
+  color: var(--ajwa-gold-400);
+  border-color: var(--ajwa-gold-600);
+}
+.ajwa-btn--gold-outline:hover:not(:disabled) {
+  border-color: var(--ajwa-gold-400);
+  color: var(--ajwa-gold-400);
+}

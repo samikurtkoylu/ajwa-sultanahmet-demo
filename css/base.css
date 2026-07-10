@@ -1,0 +1,57 @@
+/* Base — applied by <AjwaProvider> via .ajwa-root. No global element resets
+   beyond the root subtree, so the DS coexists with host-app styles. */
+.ajwa-root {
+  background: var(--ajwa-bg);
+  color: var(--ajwa-ink);
+  font-family: var(--ajwa-font-sans);
+  font-weight: 500;
+  font-size: var(--ajwa-text-body);
+  line-height: var(--ajwa-leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.ajwa-root *,
+.ajwa-root *::before,
+.ajwa-root *::after {
+  box-sizing: border-box;
+}
+
+.ajwa-root :where(h1, h2, h3, h4, h5, h6, p, figure) {
+  margin: 0;
+}
+
+.ajwa-root :where(img, video) {
+  max-width: 100%;
+  display: block;
+}
+
+.ajwa-root :where(a) {
+  color: inherit;
+}
+
+.ajwa-root :where(button) {
+  font: inherit;
+  color: inherit;
+}
+
+.ajwa-root :focus-visible {
+  outline: 2px solid var(--ajwa-accent-ink);
+  outline-offset: 2px;
+}
+
+.ajwa-root ::selection {
+  background: var(--ajwa-selection);
+}
+
+/* Layout utility the components lean on. */
+.ajwa-container {
+  max-width: var(--ajwa-container);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+.ajwa-section {
+  padding-block: var(--ajwa-space-3xl);
+}

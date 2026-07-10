@@ -1,0 +1,39 @@
+/* AJWA brand fonts — first-party licensed files (from www.ajwa.com.tr). */
+
+/* Display serif — used for large headings only (subset). */
+@font-face {
+  font-family: 'Minion Pro Display';
+  src: url('../fonts/MinionPro-Disp.woff2') format('woff2'),
+       url('../fonts/MinionPro-Disp.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minion Pro Display';
+  src: url('../fonts/MinionPro-ItDisp.woff2') format('woff2'),
+       url('../fonts/MinionPro-ItDisp.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Text serif. */
+@font-face {
+  font-family: 'Minion Pro';
+  src: url('../fonts/MinionPro-Regular.woff2') format('woff2'),
+       url('../fonts/MinionPro-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Brand sans — the hotel ships the 500 cut; it serves body and labels. */
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('../fonts/MuseoSans-500.woff') format('woff'),
+       url('../fonts/MuseoSans-500.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

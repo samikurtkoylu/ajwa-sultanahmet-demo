@@ -1,0 +1,22 @@
+.ajwa-footer-cta {
+  background: var(--ajwa-brown-800);
+  color: var(--ajwa-ink);
+  padding-block: var(--ajwa-space-2xl);
+}
+
+.ajwa-footer-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--ajwa-space-md);
+}
+
+.ajwa-footer-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ajwa-space-md) var(--ajwa-space-lg);
+  margin-top: var(--ajwa-space-sm);
+}

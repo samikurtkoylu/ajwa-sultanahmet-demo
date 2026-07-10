@@ -1,0 +1,98 @@
+/* AJWA design tokens.
+   Brand-fixed values come from AJWA BG.pdf (PANTONE 412 C / 141 C);
+   every other step is derived for the web and marked "derived". */
+:root {
+  /* ── Color · brand ─────────────────────────────────────────── */
+  --ajwa-brown-900: #241b17; /* derived — deep bookend (footer/menu/hero scrim base) */
+  --ajwa-brown-800: #382b26; /* BRAND — PANTONE 412 C dark brown */
+  --ajwa-brown-600: #55453c; /* derived */
+  --ajwa-brown-400: #7a6a5f; /* derived — muted ink on light */
+  --ajwa-gold-400: #edcc61;  /* BRAND — PANTONE 141 C gold: text, pattern, eyebrows; never a background */
+  --ajwa-gold-600: #c4a544;  /* derived — gold hover/border on dark */
+  --ajwa-gold-800: #8f7420;  /* derived — AA-readable gold ink on light backgrounds */
+
+  /* ── Color · bone/greige surface scale (derived from letterhead cream) ── */
+  --ajwa-bone-50: #faf8f4;
+  --ajwa-bone-100: #f4f1ea; /* primary light background — never pure white for sections */
+  --ajwa-bone-200: #ece7dd;
+  --ajwa-bone-300: #e0d8ca;
+  --ajwa-bone-400: #cfc5b2;
+  --ajwa-white: #ffffff;    /* reserved: cards/inputs on bone, logo-on-dark */
+
+  /* ── Color · semantic (theme-switchable) ───────────────────── */
+  --ajwa-bg: var(--ajwa-bone-100);
+  --ajwa-bg-raised: var(--ajwa-bone-50);
+  --ajwa-bg-sunken: var(--ajwa-bone-200);
+  --ajwa-ink: var(--ajwa-brown-800);
+  --ajwa-ink-soft: var(--ajwa-brown-600);
+  --ajwa-ink-muted: var(--ajwa-brown-400);
+  --ajwa-accent: var(--ajwa-gold-400);
+  --ajwa-accent-ink: var(--ajwa-gold-800); /* accent that stays readable on the current bg */
+  --ajwa-hairline: rgba(56, 43, 38, 0.22);
+  --ajwa-hairline-strong: rgba(56, 43, 38, 0.45);
+  /* Sanctioned exception to "gold is never a background": a translucent
+     selection highlight, where gold reads as ink wash rather than a surface. */
+  --ajwa-selection: rgba(237, 204, 97, 0.35);
+  --ajwa-scrim: linear-gradient(to top, rgba(36, 27, 23, 0.62), rgba(36, 27, 23, 0.08) 55%, rgba(36, 27, 23, 0) 80%);
+  /* Centered compositions sit over the middle of the frame, where a
+     bottom-anchored gradient gives no protection — wash the whole image. */
+  --ajwa-scrim-center: linear-gradient(rgba(36, 27, 23, 0.44), rgba(36, 27, 23, 0.52));
+
+  /* ── Typography ────────────────────────────────────────────── */
+  --ajwa-font-display: 'Minion Pro Display', 'Minion Pro', Georgia, serif;
+  --ajwa-font-serif: 'Minion Pro', Georgia, serif;
+  --ajwa-font-sans: 'Museo Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --ajwa-text-display-1: clamp(3.25rem, 9vw, 9.5rem);  /* colossal hero titles */
+  --ajwa-text-display-2: clamp(2.5rem, 6vw, 6rem);
+  --ajwa-text-h-lg: clamp(2rem, 4vw, 3.5rem);
+  --ajwa-text-h-md: clamp(1.5rem, 2.6vw, 2.125rem);
+  --ajwa-text-h-sm: 1.25rem;
+  --ajwa-text-body-lg: clamp(1.125rem, 1.4vw, 1.3125rem);
+  --ajwa-text-body: 1.0625rem;
+  --ajwa-text-body-sm: 0.9375rem;
+  --ajwa-text-label: 0.8125rem;
+  --ajwa-text-label-sm: 0.6875rem;
+
+  --ajwa-track-label: 0.26em;   /* wide tracking for tiny uppercase labels */
+  --ajwa-track-display: -0.01em;/* near-tight tracking for colossal headings */
+  --ajwa-leading-display: 0.92;
+  --ajwa-leading-body: 1.7;
+
+  /* ── Space (section rhythm ≈ 144px desktop) ────────────────── */
+  --ajwa-space-2xs: 0.5rem;
+  --ajwa-space-xs: 0.75rem;
+  --ajwa-space-sm: 1rem;
+  --ajwa-space-md: 1.5rem;
+  --ajwa-space-lg: 2.5rem;
+  --ajwa-space-xl: 4rem;
+  --ajwa-space-2xl: 6rem;
+  --ajwa-space-3xl: clamp(4rem, 10vw, 9rem);
+
+  /* ── Shape · motion · layout ───────────────────────────────── */
+  --ajwa-radius: 0px;        /* the system is square-cornered */
+  --ajwa-radius-soft: 2px;   /* buttons/inputs only */
+  --ajwa-ease: cubic-bezier(0.625, 0.05, 0, 1); /* house easing */
+  --ajwa-dur-fast: 0.35s;
+  --ajwa-dur-slow: 0.7s;
+  --ajwa-container: 80rem;
+  --ajwa-measure: 36rem;     /* text column cap */
+
+  /* ── Ogee lattice pattern (brand pattern, always gold) ─────── */
+  --ajwa-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='68' viewBox='0 0 56 68'%3E%3Cg fill='none' stroke='%23edcc61' stroke-width='1'%3E%3Cpath d='M28 0c7 12 28 15 28 34S35 56 28 68C21 56 0 53 0 34S21 12 28 0Z'/%3E%3Cpath d='M0 0c7 12 28 15 28 34m0 0C21 56 0 53 0 34m56 0c0 19-21 22-28 34M28 34C35 22 56 19 56 34' transform='translate(0 -34)'/%3E%3Cpath d='M0 34c7 12 28 15 28 34m0 0c7-12 28-15 28-34' transform='translate(-28 0)'/%3E%3C/g%3E%3C/svg%3E");
+  /* A single ogee motif — for ornaments too small to read the full lattice. */
+  --ajwa-pattern-motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='40' viewBox='0 0 28 40'%3E%3Cg fill='none' stroke='%23edcc61' stroke-width='1'%3E%3Cpath d='M14 1c6 9 13 13 13 19s-6 10-13 19C7 30 1 26 1 20S8 10 14 1Z'/%3E%3Cpath d='M14 8c4 6 8 9 8 12s-4 7-8 12c-4-5-8-9-8-12s4-6 8-12Z' opacity='.55'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Dark scheme — apply .ajwa-scheme-dark on any subtree (Provider does this). */
+.ajwa-scheme-dark {
+  --ajwa-bg: var(--ajwa-brown-900);
+  --ajwa-bg-raised: var(--ajwa-brown-800);
+  --ajwa-bg-sunken: #1c1512;
+  --ajwa-ink: var(--ajwa-bone-100);
+  --ajwa-ink-soft: var(--ajwa-bone-300);
+  --ajwa-ink-muted: #a4988a;
+  --ajwa-accent-ink: var(--ajwa-gold-400); /* gold is readable on dark — use it straight */
+  --ajwa-hairline: rgba(244, 241, 234, 0.22);
+  --ajwa-hairline-strong: rgba(244, 241, 234, 0.45);
+}

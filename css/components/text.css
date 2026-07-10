@@ -1,0 +1,20 @@
+.ajwa-text {
+  font-family: var(--ajwa-font-sans);
+  font-weight: 500;
+  line-height: var(--ajwa-leading-body);
+  color: var(--ajwa-ink-soft);
+}
+
+.ajwa-text--sm { font-size: var(--ajwa-text-body-sm); }
+.ajwa-text--md { font-size: var(--ajwa-text-body); }
+.ajwa-text--lg { font-size: var(--ajwa-text-body-lg); line-height: 1.6; }
+
+.ajwa-text--muted { color: var(--ajwa-ink-muted); }
+
+.ajwa-text--serif {
+  font-family: var(--ajwa-font-serif);
+  font-weight: 400;
+}
+
+.ajwa-text--measure { max-width: var(--ajwa-measure); }
+.ajwa-text--center { text-align: center; margin-inline: auto; }

@@ -1,0 +1,80 @@
+.ajwa-hero {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  background: var(--ajwa-brown-900);
+}
+
+/* Heights — min-height so overlong content never clips. */
+.ajwa-hero--full {
+  min-height: 100vh; /* fallback */
+  min-height: 100svh;
+}
+.ajwa-hero--tall { min-height: 78vh; }
+.ajwa-hero--compact { min-height: 52vh; }
+
+/* Media — cover image on a dark underlay. */
+.ajwa-hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--ajwa-brown-900);
+}
+
+.ajwa-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ajwa-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--ajwa-scrim);
+  pointer-events: none;
+}
+
+/* Centered text needs protection across the whole frame, not just the foot. */
+.ajwa-hero--center .ajwa-hero__scrim {
+  background: var(--ajwa-scrim-center), var(--ajwa-scrim);
+}
+
+/* Content layer — a .ajwa-scheme-dark subtree, stretched over the media. */
+.ajwa-hero__content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  padding-block: var(--ajwa-space-xl);
+}
+
+.ajwa-hero__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ajwa-space-md);
+}
+
+/* Alignment: centered composition. */
+.ajwa-hero--center .ajwa-hero__content { align-items: center; }
+.ajwa-hero--center .ajwa-hero__inner {
+  align-items: center;
+  text-align: center;
+}
+
+/* Alignment: bottom-left inside the container padding. */
+.ajwa-hero--bottom-start .ajwa-hero__content {
+  align-items: flex-end;
+  padding-bottom: var(--ajwa-space-2xl);
+}
+.ajwa-hero--bottom-start .ajwa-hero__inner { align-items: flex-start; }
+
+.ajwa-hero__lead { max-width: var(--ajwa-measure); }
+
+.ajwa-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ajwa-space-sm);
+  margin-top: var(--ajwa-space-sm);
+}
+.ajwa-hero--center .ajwa-hero__actions { justify-content: center; }

@@ -1,0 +1,57 @@
+.ajwa-booking-strip {
+  background: var(--ajwa-bg-sunken);
+  border-top: 1px solid var(--ajwa-hairline);
+  border-bottom: 1px solid var(--ajwa-hairline);
+  padding-block: var(--ajwa-space-xl);
+}
+
+.ajwa-booking-strip__heading {
+  margin-bottom: var(--ajwa-space-lg);
+}
+
+/* Equal columns for any item count. */
+.ajwa-booking-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.ajwa-booking-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--ajwa-space-md);
+  padding-inline: var(--ajwa-space-md);
+}
+
+/* Hairline vertical separators between columns. */
+.ajwa-booking-strip__item + .ajwa-booking-strip__item {
+  border-left: 1px solid var(--ajwa-hairline);
+}
+
+.ajwa-booking-strip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ajwa-space-sm) var(--ajwa-space-md);
+}
+
+/* Stacked layout — separators rotate to horizontal hairlines. */
+@media (max-width: 760px) {
+  .ajwa-booking-strip__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ajwa-booking-strip__item {
+    padding-inline: 0;
+    padding-block: var(--ajwa-space-lg);
+  }
+  .ajwa-booking-strip__item:first-child { padding-top: 0; }
+  .ajwa-booking-strip__item:last-child { padding-bottom: 0; }
+
+  .ajwa-booking-strip__item + .ajwa-booking-strip__item {
+    border-left: 0;
+    border-top: 1px solid var(--ajwa-hairline);
+  }
+}

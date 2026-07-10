@@ -1,0 +1,37 @@
+.ajwa-eyebrow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+}
+
+.ajwa-eyebrow--center {
+  align-items: center;
+  text-align: center;
+}
+
+.ajwa-eyebrow__label {
+  font-family: var(--ajwa-font-sans);
+  font-size: var(--ajwa-text-label);
+  font-weight: 500;
+  letter-spacing: var(--ajwa-track-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.ajwa-eyebrow--accent .ajwa-eyebrow__label { color: var(--ajwa-accent-ink); }
+.ajwa-eyebrow--ink .ajwa-eyebrow__label { color: var(--ajwa-ink); }
+.ajwa-eyebrow--muted .ajwa-eyebrow__label { color: var(--ajwa-ink-muted); }
+
+/* Calligraphic crown — italic display serif in brand gold, slightly
+   overlapping the label below it (the Akaneya-style signature move). */
+.ajwa-eyebrow__script {
+  font-family: var(--ajwa-font-display);
+  font-style: italic;
+  font-size: 2em;
+  line-height: 1;
+  color: var(--ajwa-accent-ink);
+  margin-bottom: -0.2em;
+  text-transform: none;
+  letter-spacing: 0;
+}

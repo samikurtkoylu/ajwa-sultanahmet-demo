@@ -1,0 +1,50 @@
+/* Band — a strip of the repeating ogee lattice. The pattern token is
+   baked gold; it is never recolored. */
+.ajwa-pattern-divider--band {
+  background-image: var(--ajwa-pattern);
+  background-size: auto 44px;
+  background-repeat: repeat;
+  background-position: center;
+  opacity: 0.5;
+}
+
+/* Optional fade toward both ends of the band. */
+.ajwa-pattern-divider--band.ajwa-pattern-divider--fade {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+/* Hairline — 1px rule with a single pattern tile knocking it out at center. */
+.ajwa-pattern-divider--hairline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+
+.ajwa-pattern-divider--hairline::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--ajwa-hairline);
+}
+
+/* The tile: bone background + inline padding knock the line out around it.
+   A single motif, not the lattice — the full repeat is illegible this small. */
+.ajwa-pattern-divider--hairline::before {
+  content: '';
+  position: relative;
+  z-index: 1;
+  box-sizing: content-box;
+  width: 17px;
+  height: 24px;
+  padding-inline: var(--ajwa-space-sm);
+  background-color: var(--ajwa-bg);
+  background-image: var(--ajwa-pattern-motif);
+  background-size: auto 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

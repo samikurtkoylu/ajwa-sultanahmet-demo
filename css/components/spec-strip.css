@@ -1,0 +1,46 @@
+/* Every item draws a left hairline; the list is pulled one gutter left and
+   the root clips it, so the first item of every wrapped row loses its rule. */
+.ajwa-spec-strip {
+  overflow: hidden;
+}
+
+.ajwa-spec-strip__list {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--ajwa-space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ajwa-spec-strip--md .ajwa-spec-strip__list { margin-left: calc(-1 * var(--ajwa-space-md) - 1px); }
+.ajwa-spec-strip--sm .ajwa-spec-strip__list { margin-left: calc(-1 * var(--ajwa-space-sm) - 1px); }
+
+.ajwa-spec-strip__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  border-left: 1px solid var(--ajwa-hairline);
+}
+
+.ajwa-spec-strip--md .ajwa-spec-strip__item { padding-inline: var(--ajwa-space-md); }
+.ajwa-spec-strip--sm .ajwa-spec-strip__item { padding-inline: var(--ajwa-space-sm); }
+
+.ajwa-spec-strip__label {
+  font-family: var(--ajwa-font-sans);
+  font-size: var(--ajwa-text-label-sm);
+  font-weight: 500;
+  letter-spacing: var(--ajwa-track-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--ajwa-ink-muted);
+}
+
+.ajwa-spec-strip__value {
+  font-family: var(--ajwa-font-sans);
+  font-size: var(--ajwa-text-body-sm);
+  line-height: 1.5;
+  color: var(--ajwa-ink);
+}
+
+.ajwa-spec-strip--sm .ajwa-spec-strip__value { font-size: var(--ajwa-text-label); }

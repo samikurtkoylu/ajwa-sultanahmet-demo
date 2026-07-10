@@ -1,0 +1,113 @@
+/* StayCard — THE product card (room category / mansion / hotel teaser).
+   Raised bone surface, hairline border, square corners, no shadow. */
+.ajwa-stay-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ajwa-bg-raised);
+  border: 1px solid var(--ajwa-hairline);
+  border-radius: var(--ajwa-radius);
+  overflow: hidden;
+}
+
+/* Media — image on a dark underlay; slow scale on card hover. */
+.ajwa-stay-card__media {
+  overflow: hidden;
+  background: var(--ajwa-brown-900);
+  aspect-ratio: 4 / 3;
+}
+
+.ajwa-stay-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform var(--ajwa-dur-slow) var(--ajwa-ease);
+}
+
+.ajwa-stay-card:hover .ajwa-stay-card__img {
+  transform: scale(1.06);
+}
+
+/* Body — content stacks; footer is pinned to the bottom edge. */
+.ajwa-stay-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: var(--ajwa-space-md);
+}
+
+.ajwa-stay-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ajwa-space-xs);
+}
+
+/* Teaser copy clamps to three lines. */
+.ajwa-stay-card__desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Footer — price left, CTA right, hairline above. On a narrow card the two
+   stack rather than squeezing the price into three lines. */
+.ajwa-stay-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--ajwa-space-sm);
+  margin-top: auto;
+  padding-top: var(--ajwa-space-sm);
+  border-top: 1px solid var(--ajwa-hairline);
+}
+
+/* Minimum breathing room between content and the pinned footer. */
+.ajwa-stay-card__body > .ajwa-stay-card__content {
+  margin-bottom: var(--ajwa-space-md);
+}
+
+.ajwa-stay-card__body > .ajwa-stay-card__content:last-child {
+  margin-bottom: 0;
+}
+
+/* CTA hugs the right edge even when no price is set. */
+.ajwa-stay-card__cta {
+  margin-inline-start: auto;
+}
+
+/* Horizontal — image left 55% / content right; stacks under 720px. */
+.ajwa-stay-card--horizontal {
+  flex-direction: row;
+}
+
+.ajwa-stay-card--horizontal .ajwa-stay-card__media {
+  flex: 0 0 55%;
+  width: 55%;
+  aspect-ratio: 3 / 2;
+}
+
+.ajwa-stay-card--horizontal .ajwa-stay-card__body {
+  width: 45%;
+  padding: var(--ajwa-space-lg);
+}
+
+@media (max-width: 720px) {
+  .ajwa-stay-card--horizontal {
+    flex-direction: column;
+  }
+
+  .ajwa-stay-card--horizontal .ajwa-stay-card__media {
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .ajwa-stay-card--horizontal .ajwa-stay-card__body {
+    width: 100%;
+    padding: var(--ajwa-space-md);
+  }
+}
