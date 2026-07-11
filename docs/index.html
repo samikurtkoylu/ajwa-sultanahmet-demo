@@ -97,7 +97,26 @@
         display: grid; justify-items: center; text-align: center;
         padding: 0 var(--ajwa-space-lg); pointer-events: none;
       }
-      .lp-hero__tagline p { margin: 0; font-family: var(--ajwa-font-serif); font-size: var(--ajwa-text-body-lg); color: var(--ajwa-bone-100); }
+      /* “A Unique Experience” — stacked lockup. EXPERIENCE is letter-spaced so
+         its set width matches UNIQUE above it; the italic gold A crowns both. */
+      .lp-hero__lockup { margin: 0; display: grid; justify-items: center; row-gap: clamp(0.5rem, 1.4vw, 1.25rem); color: var(--ajwa-bone-100); }
+      .lp-hero__lockup-a {
+        font-family: var(--ajwa-font-display); font-style: italic;
+        font-size: clamp(1.5rem, 2.8vw, 2.75rem); line-height: 1;
+        padding: 0 0.15em; /* italic overhang vs the mask's overflow crop */
+        color: var(--ajwa-gold-400);
+      }
+      .lp-hero__lockup-lg {
+        font-family: var(--ajwa-font-display); text-transform: uppercase;
+        font-size: var(--ajwa-text-display-1);
+        line-height: var(--ajwa-leading-display); letter-spacing: var(--ajwa-track-display);
+      }
+      .lp-hero__lockup-md {
+        font-family: var(--ajwa-font-display); text-transform: uppercase;
+        font-size: calc(var(--ajwa-text-display-1) * 0.36);
+        line-height: 1.15;
+        letter-spacing: 0.52em; margin-right: -0.52em; /* re-center: kill the trailing track */
+      }
 
       /* Reveal-line masks */
       .lp-mask { display: block; overflow: hidden; }
@@ -440,7 +459,11 @@
           </div>
           <div class="lp-hero__scrim" aria-hidden="true"></div>
           <div class="lp-hero__tagline ajwa-scheme-dark">
-            <span class="lp-mask"><p data-line>The heart of Istanbul&rsquo;s historical peninsula.</p></span>
+            <p class="lp-hero__lockup" aria-label="A Unique Experience">
+              <span class="lp-mask" aria-hidden="true"><span class="lp-hero__lockup-a" data-line>A</span></span>
+              <span class="lp-mask" aria-hidden="true"><span class="lp-hero__lockup-lg" data-line>Unique</span></span>
+              <span class="lp-mask" aria-hidden="true"><span class="lp-hero__lockup-md" data-line>Experience</span></span>
+            </p>
           </div>
         </section>
 
