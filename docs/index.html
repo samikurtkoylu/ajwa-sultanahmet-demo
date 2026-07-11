@@ -47,6 +47,20 @@
         mask-size: clamp(120px, 15vw, 180px) auto, 100% 100%;
         mask-composite: intersect;
       }
+      /* Thin progress bar under the emblem, driven by the same value as the
+         gold drain — makes the fill legible as *loading*, not a fade. */
+      .lp-preloader__bar {
+        position: absolute; left: 50%;
+        top: calc(50% + 0.6314 * clamp(120px, 15vw, 180px) + 34px);
+        transform: translateX(-50%);
+        width: clamp(150px, 16vw, 220px); height: 2px;
+        background: rgba(197, 164, 119, 0.22); overflow: hidden;
+      }
+      .lp-preloader__bar span {
+        display: block; width: 100%; height: 100%;
+        background: var(--ajwa-gold-400);
+        transform: scaleX(0); transform-origin: left center;
+      }
 
       /* Fixed header */
       .lp-header {
@@ -386,6 +400,7 @@
           <div class="lp-preloader__cover" data-preloader-cover aria-hidden="true"></div>
           <div class="lp-preloader__gold" data-preloader-gold aria-hidden="true"></div>
         </div>
+        <div class="lp-preloader__bar" data-preloader-bar aria-hidden="true"><span data-preloader-bar-fill></span></div>
       </div>
 
       <!-- Fixed header -->
@@ -602,7 +617,7 @@
         </section>
 
         <!-- Spa -->
-        <section id="spa" class="lp-section" style="background: var(--ajwa-bg);">
+        <section id="spa" class="lp-section">
           <div class="lp-wrap">
             <div class="lp-feature">
               <div class="lp-figure" data-clip>
@@ -1001,10 +1016,18 @@
               }
             }
 
+            var bar = preloader.querySelector('[data-preloader-bar]');
+            var barFill = preloader.querySelector('[data-preloader-bar-fill]');
             var applyGold = function (w) {
               var g = 'linear-gradient(to bottom, transparent ' + (w - 6).toFixed(2) + '%, #000 ' + (w + 6).toFixed(2) + '%)';
               var mi = 'var(--ajwa-logo-mask), ' + g;
               gold.style.webkitMaskImage = mi; gold.style.maskImage = mi;
+              // The bar reads off the same value as the drain, so the two can
+              // never drift apart.
+              if (barFill) {
+                var p = Math.max(0, Math.min(1, (w + 8) / 116));
+                barFill.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+              }
             };
             applyGold(-8);
 
@@ -1015,6 +1038,7 @@
               gsap.ticker.remove(loadTick);
               applyGold(108);
               var tl = gsap.timeline();
+              if (bar) tl.to(bar, { autoAlpha: 0, duration: 0.4, ease: 'power1.out' }, 0);
               tl.add(playHeroMedia, 0);
               if (cover) {
                 // Zoom by animating mask-size (not transform): the SVG mask is
@@ -1158,8 +1182,7 @@
 
           // Section hand-offs (akaneyajapan-style): the outgoing section blurs
           // or darkens in step with the incoming one. Rooms blurs away as
-          // Dining arrives; Dining then darkens while Afiya Spa washes from
-          // the house cream into its signature aqua.
+          // Dining arrives; Dining then darkens as Afiya Spa takes the stage.
           var roomsSec = document.querySelector('#rooms');
           var diningSec = document.querySelector('#dining');
           var spaSec = document.querySelector('#spa');
@@ -1172,10 +1195,6 @@
           if (diningSec && spaSec) {
             gsap.fromTo(diningSec, { filter: 'brightness(1)' }, {
               filter: 'brightness(0.15)', ease: 'none',
-              scrollTrigger: { trigger: spaSec, start: 'top 92%', end: 'top 15%', scrub: true }
-            });
-            gsap.to(spaSec, {
-              backgroundColor: '#87cec5', ease: 'none',
               scrollTrigger: { trigger: spaSec, start: 'top 92%', end: 'top 15%', scrub: true }
             });
           }
