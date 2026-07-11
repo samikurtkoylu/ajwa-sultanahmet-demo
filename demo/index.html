@@ -124,6 +124,10 @@
         line-height: 1.15;
         letter-spacing: 0.52em; margin-right: -0.52em; /* re-center: kill the trailing track */
       }
+      /* Turkish lockup reads EŞSİZ / bir / DENEYİM — the big line comes FIRST,
+         so the ink-gap compensation moves from line 2 to line 3. */
+      html[lang="tr"] .lp-hero__lockup .lp-mask:nth-child(2) { margin-top: 0; }
+      html[lang="tr"] .lp-hero__lockup .lp-mask:nth-child(3) { margin-top: calc(var(--ajwa-text-display-1) * 0.04); }
 
       /* Reveal-line masks */
       .lp-mask { display: block; overflow: hidden; }
@@ -449,6 +453,12 @@
           <a class="lp-navlink" href="#dining" data-scroll-to>Dining</a>
           <a class="lp-navlink" href="#spa" data-scroll-to>Spa</a>
           <a class="lp-navlink" href="#offers" data-scroll-to>Offers</a>
+          <div class="ajwa-lang-switcher" role="group" aria-label="Language">
+            <ul class="ajwa-lang-switcher__list">
+              <li class="ajwa-lang-switcher__item"><button type="button" class="ajwa-lang-switcher__lang" data-lang-btn="tr" lang="tr" aria-label="Türkçe">TR</button></li>
+              <li class="ajwa-lang-switcher__item"><button type="button" class="ajwa-lang-switcher__lang" data-lang-btn="en" lang="en" aria-label="English">EN</button></li>
+            </ul>
+          </div>
           <a class="lp-navlink lp-navlink--cta" href="#book" data-scroll-to>Book your stay</a>
         </nav>
       </header>
@@ -899,6 +909,222 @@
       </footer>
 
     </div>
+
+    <!-- ————— i18n: TR text swap runs synchronously BEFORE the animation
+         scripts, so masks, the marquee and the char-split caption all measure
+         the final Turkish text. Turkish copy is the official site's own
+         (ajwa.com.tr TR pages); offer titles stay in English on the TR site
+         by the brand's own convention, so they stay here too. ————— -->
+    <script>
+      (function () {
+        var LANG = 'en';
+        try { LANG = localStorage.getItem('ajwa-lang') || 'en'; } catch (e) {}
+        var q = /[?&]lang=(tr|en)\b/.exec(location.search);
+        if (q) { LANG = q[1]; try { localStorage.setItem('ajwa-lang', LANG); } catch (e) {} }
+
+        document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
+          var to = b.getAttribute('data-lang-btn');
+          b.classList.toggle('ajwa-lang-switcher__lang--active', to === LANG);
+          b.addEventListener('click', function () {
+            if (to === LANG) return;
+            try { localStorage.setItem('ajwa-lang', to); } catch (e) {}
+            location.reload();
+          });
+        });
+
+        window.AJWA_UI = { walk: 'walk', drive: 'drive' };
+        if (LANG !== 'tr') return;
+        document.documentElement.setAttribute('lang', 'tr');
+        window.AJWA_UI = { walk: 'yürüyüş', drive: 'araçla' };
+
+        /* EN → TR, keyed by the exact rendered English text. */
+        var T = {
+          'Rooms & Suites': 'Odalar & Süitler',
+          'Dining': 'Yemek',
+          'Offers': 'Özel Teklifler',
+          'Book your stay': 'Rezervasyon',
+          'AJWA Sultanahmet — the hotel at dusk over the Old City': 'AJWA Sultanahmet — gün batımında Tarihi Yarımada üzerinde otel',
+          'A Unique Experience': 'Eşsiz Bir Deneyim',
+          'More than a mere five-star hotel.': 'Beş yıldızlı bir otelden daha fazlası.',
+          'AJWA Sultanahmet offers serenity and gracious hospitality in settings akin to a private mansion. Adorned with exquisite mother-of-pearl furniture, silk Tabriz carpets, original artwork, unique marble work, hand-painted ceilings and specially commissioned tiles throughout its 61 rooms, suites and public areas, the hotel embraces all aspects of luxury hospitality with a halal approach.':
+            'AJWA Sultanahmet, beş yıldızlı bir otelden daha fazlasını, huzuru ve konukseverliği, kişisel bir konak konforunda misafirlerine sunuyor. Sedef kakma mobilyaları, ipek Tebriz halıları, orijinal tabloları, eşsiz bir mermer işçiliği, el emeği tavan işlemeleri ve el işi İznik Çinileri ile dekore edilmiş 61 oda ve genel alanlarda, AJWA Sultanahmet lüks misafirperverliği helal konsept ile buluşturarak konuklarına sunuyor.',
+          'Rooms & suites': 'Oda & Süit',
+          'Deluxe rooms': 'Delüks Oda',
+          'Suites': 'Süit',
+          'Concierge & in-room dining': 'Concierge & Oda Servisi',
+          'The entrance portal of AJWA Sultanahmet': "AJWA Sultanahmet'in giriş kapısı",
+          'The finest features of Seljuk and Ottoman architecture, reborn in the heart of the Old City.':
+            "Selçuklu ve Osmanlı mimarisinin en seçkin unsurları, Tarihi Yarımada'nın kalbinde yeniden hayat buluyor.",
+          'Accommodation': 'Konaklama',
+          'The rooms of AJWA Sultanahmet were curated with “a sense of place” in mind, with design features and details that genuinely reflect the culture and traditions of this historic city. Accessible rooms are also available on request.':
+            "Tarihi yarımadanın kültürünü ve geleneklerini yansıtan tasarım özellikleri ile, en ince detaya kadar düşünülerek dekore edilen AJWA Sultanahmet'in odaları ve suitleri, konaklamanız boyunca İstanbul'u yaşamanıza olanak sağlıyor. Tesiste engelli misafir odaları mevcut olup istek üzerine tahsis edilebilir.",
+          '01 — Rooms': '01 — Odalar',
+          '02 — Suites': '02 — Süitler',
+          '03 — Suites': '03 — Süitler',
+          '04 — Suites': '04 — Süitler',
+          'Deluxe Room': 'Delüks Oda',
+          'Deluxe Room at AJWA Sultanahmet': "AJWA Sultanahmet'te Delüks Oda",
+          'The generously appointed 48 Deluxe Rooms of the hotel have an average size of 32 sqm, with french or twin beds, and variously offer street and sea views.':
+            'Toplamda 48 adet bulunan Deluxe Odalar ortalama 32 metrekare yaşam alanı sunmakta, çift kişilik veya iki adet tek kişilik yatak kapasitesi ile şehir ya da deniz manzaralı olarak tercih edilebilmektedir.',
+          'French or twin beds': 'Çift kişilik veya iki tek kişilik yatak',
+          'Street & sea views': 'Şehir & deniz manzarası',
+          'Discover the room': 'Odayı keşfedin',
+          'Family Suite': 'Aile Süiti',
+          'Family Suite at AJWA Sultanahmet': "AJWA Sultanahmet'te Aile Süiti",
+          'AJWA Sultanahmet offers 7 Family Suites that overlook the hotel’s atrium with an interior vertical garden. Measuring 47 square meters each, these suites do not offer external views.':
+            'AJWA Sultanahmet, boydan boya canlı yemyeşil bitkilerle donatılarak dikey bir iç bahçeye dönüştürülmüş, otelin avlusuna bakan 7 adet Aile Süiti sunmaktadır. Her biri 47 metrekare olan bu süitlerin dış mekana bakan bir penceresi bulunmamakla birlikte, son derece sakin ve huzurlu bir konaklama deneyimi sunmaktadır.',
+          '7 suites': '7 süit',
+          'Vertical-garden atrium': 'Dikey bahçeli iç avlu',
+          'Discover the suite': 'Süiti keşfedin',
+          'Corner Suite': 'Köşe Süit',
+          'Corner Suite at AJWA Sultanahmet': "AJWA Sultanahmet'te Köşe Süit",
+          'Measuring a generous 45 sqm each, the 5 Corner Suites in AJWA Sultanahmet are decorated in purple, lilac and Eau-de-Nil shades and furnished with comfortable Ottoman couches. Beautiful mother-of-pearl inlay seats will take you on a journey to the city’s imperial past.':
+            "Her biri 45 metrekare genişliğindeki 5 Köşe Süiti, Osmanlı Dönemi tasarım anlayışı çerçevesinde yaygın olarak tercih edilen lila, mor, yeşil ve toprak tonlarında dekore edildi. Köşe Suit'lerde bulunan sedef işlemeli koltuklar, misafirleri İstanbul'un tarihinde bir gezintiye çıkaracak kadar göz alıcı tasarıma sahipler.",
+          '5 suites': '5 süit',
+          'Mother-of-pearl inlay': 'Sedef işleme',
+          'Sultan Suite': 'Sultan Süiti',
+          'Sultan Suite at AJWA Sultanahmet': "AJWA Sultanahmet'te Sultan Süiti",
+          'The exquisite 120 sqm Sultan Suite on the 7th floor of AJWA Sultanahmet lives up to its name!':
+            "Adıyla yaşayan bir oda olan Sultan Süit, Sultanlara yakışır 120 metrekarelik ferah yaşam alanı ile AJWA Sultanahmet'in 7'inci katında muhteşem deniz manzarası ile misafirlerini karşılıyor.",
+          '7th floor': '7. kat',
+          'Sea of Marmara': 'Marmara Denizi',
+          'From the top floor': 'Çatı katından',
+          'to your room': 'odanıza',
+          'Zeferan Restaurant': 'Zeferan Restoran',
+          'A magnificent venue with crystal amber-colored lightings and touches of Turkish-Islamic arts, Zeferan is situated on the top floor and offers panoramic views of the Old Town and the Sea of Marmara. The cuisine is predominantly Azerbaijani — a diverse range of rice dishes, vegetable and pickle roasts and an abundance of greens and grilled meat.':
+            "AJWA Sultanahmet'in çatı katında yer alan Zeferan Restoran, eşsiz deniz ve Tarihi Yarımada manzarası, amber aydınlatmalar ve sanat eserleri ile tasarlanmış dekorasyonu ile İstanbul'un önde gelen restoranları arasındadır. Başta Azerbaycan Mutfağı olmak üzere Türk ve Dünya Mutfağı'ndan pek çok lezzeti zengin menüsünde sunan restoranda her zevke uygun bir tat bulmak mümkündür.",
+          'More detail': 'Detayına git',
+          'Feijoa Pâtisserie': 'Feijoa Patisserie',
+          'Located in the lobby of AJWA Sultanahmet, Feijoa Pâtisserie adds a touch of sweetness to your day with its carefully crafted desserts.':
+            "AJWA Sultanahmet'in lobisinde yer alan Feijoa Pastanesi, özenle hazırlanan tatlılarıyla gününüze keyif katıyor.",
+          'In-Room Dining': 'Oda Servisi',
+          'After a long and tiring day of exploring the many wonders of İstanbul, why not kick back and enjoy a wonderful selection of freshly prepared Turkish dishes from our rich In-Room Dining Menu?':
+            "İstanbul'un sayısız güzelliğini keşfederek geçen uzun ve yorucu bir günün ardından, neden arkanıza yaslanıp zengin Oda Servisi Menümüzde yer alan, taze ve özenle hazırlanmış Türk lezzetlerinin keyfini çıkarmayasınız?",
+          'Afiya Spa at AJWA Sultanahmet': "AJWA Sultanahmet'te Afiya Spa",
+          'Start your journey': 'Sağlıklı bir yolculuğa',
+          'to wellness': 'başlayın',
+          'Afiya Spa and the marble hammam continue a bathing tradition as old as the Old City itself — a quiet counterpoint to a day among the monuments of the historical peninsula.':
+            "Osmanlı gündelik yaşamının önemli bir tezahürü olan hamamlar, temizlik ve yıkanma kültürü kadar ritüelleriyle de konuklarına farklı deneyimler yaşatıyor. Afiya Spa, Osmanlı'dan günümüze süregelen gelenekleri çağımız gereksinimleriyle harmanlayarak misafirlerine taşıyor.",
+          'Special Offers': 'Özel Teklifler',
+          'Stay a little': 'Biraz daha',
+          'longer': 'kalın',
+          'Six seasonal privileges — from early-booking savings to candlelit dinners over the Marmara — each crafted to make your time at AJWA linger.':
+            "Erken rezervasyon avantajından Marmara'ya karşı mum ışığında akşam yemeğine uzanan altı sezonluk ayrıcalık — her biri, AJWA'da geçirdiğiniz zamanın tadını biraz daha uzatmak için özenle tasarlandı.",
+          'Reserve now and indulge in the timeless elegance of AJWA Sultanahmet, with an exclusive 20% savings available for a limited time.':
+            "Hemen rezervasyon yapın; AJWA Sultanahmet'in zamansız zarafetini, sınırlı süre için geçerli %20'lik özel avantajla yaşayın.",
+          'Plan your stay at least 15 days in advance and enjoy exclusive early booking privileges in our distinguished rooms.':
+            'Konaklamanızı en az 15 gün önceden planlayın; seçkin odalarımızda ayrıcalıklı erken rezervasyon avantajlarının keyfini çıkarın.',
+          'Experience the privilege of staying at the Clock House and White Mansion — reserve your getaway today.':
+            "Saatli Konak ve Beyaz Konak'ta konaklama ayrıcalığını yaşayın — kaçamağınız için bugün rezervasyon yapın.",
+          'Enjoy a massage as an exclusive AJWA privilege when you stay for 3 nights; a second guest benefits with a 20% discount.':
+            "3 gece konaklamanızda AJWA'ya özel bir ayrıcalık olarak masajın keyfini çıkarın; ikinci misafir bu ayrıcalıktan %20 indirimle yararlanır.",
+          'Breakfast included, followed by a three-course dinner at Zeferan Restaurant with breathtaking views of the Marmara Sea.':
+            "Kahvaltı dahil; ardından Marmara Denizi'nin nefes kesen manzarası eşliğinde Zeferan Restoran'da üç servislik bir akşam yemeği sizi bekliyor.",
+          'Immerse yourself in a world where timeless elegance and refined luxury meet Istanbul’s rich historical heritage.':
+            "Zamansız zarafetin ve rafine lüksün İstanbul'un zengin tarihi mirasıyla buluştuğu bir dünyaya kendinizi bırakın.",
+          'The Neighbourhood': 'Yakın Çevre',
+          'The heart of Istanbul’s': "Tarihi Yarımada'nın",
+          'historical peninsula': 'Kalbi',
+          'Piyerloti Caddesi No:30, Sultanahmet, 34126 Istanbul — Türkiye · +90 212 638 22 00':
+            'Piyerloti Caddesi No:30, Sultanahmet, 34126 İstanbul — Türkiye · +90 212 638 22 00',
+          'Blue Mosque': 'Sultanahmet Camii',
+          'Hagia Sophia': 'Ayasofya',
+          'Basilica Cistern': 'Yerebatan Sarnıcı',
+          'Grand Bazaar': 'Kapalıçarşı',
+          'Topkapı Palace': 'Topkapı Sarayı',
+          'Spice Bazaar': 'Mısır Çarşısı',
+          'Minutes on foot · Nearby airports: Istanbul Airport 47 km · Sabiha Gökçen 45 km':
+            'Yürüyerek yalnızca birkaç dakika · Yakın havalimanları: İstanbul Havalimanı 47 km · Sabiha Gökçen 45 km',
+          'Reservations': 'Rezervasyon',
+          'Book direct,': 'Direkt rezervasyon,',
+          'best rates.': 'en iyi fiyatlar.',
+          'Book now': 'Rezervasyon yapın',
+          'Contact us': 'Bize ulaşın',
+          'AJWA Homes Istanbul': 'AJWA Homes İstanbul',
+          'Nearby': 'Yakın Çevre',
+          'Sultan Ahmed Mosque': 'Sultanahmet Camii',
+          'Istanbul Airport': 'İstanbul Havalimanı',
+          'Sabiha Gökçen Airport': 'Sabiha Gökçen Havalimanı',
+          'AJWA Sultanahmet — map of the historical peninsula': 'AJWA Sultanahmet — Tarihi Yarımada haritası',
+          'The historical peninsula': 'Tarihi Yarımada',
+          'Hover a landmark to trace the walk from the door': 'Otel kapısından başlayan rotayı izlemek için bir simgenin üzerine gelin',
+          'Explore': 'Keşfedin',
+          'About this Hotel': 'Hakkımızda',
+          'Gallery': 'Galeri',
+          'Meeting Facilities': 'Toplantı Odaları',
+          'Concierge & Services': 'Concierge Hizmetleri',
+          'Butler Service': 'Butler Hizmeti',
+          'Contact': 'İletişim',
+          'Follow': 'Takip Edin',
+          'Destinations': 'Destinasyonlar',
+          '© AJWA Hotels 2026. All Rights Reserved.': '© AJWA Hotels 2026. Tüm Hakları Saklıdır.',
+          'Back to top': 'Başa dön'
+        };
+
+        /* EN page URLs → their Turkish counterparts on ajwa.com.tr. */
+        var BASE = 'https://www.ajwa.com.tr/';
+        var URLS = {
+          'sultanahmet/mainpage.aspx': 'sultanahmet/anasayfa.aspx',
+          'sultanahmet/accommodation/rooms/deluxe-room.2.4.aspx': 'sultanahmet/konaklama/odalar/deluks-oda.2.4.aspx',
+          'sultanahmet/accommodation/suites/family-suite.3.5.aspx': 'sultanahmet/konaklama/suitler/aile-suiti.3.5.aspx',
+          'sultanahmet/accommodation/suites/corner-suite.4.5.aspx': 'sultanahmet/konaklama/suitler/kose-suit.4.5.aspx',
+          'sultanahmet/accommodation/suites/sultan-suite.5.5.aspx': 'sultanahmet/konaklama/suitler/sultan-suiti.5.5.aspx',
+          'sultanahmet/restaurant-services/zeferan-restaurant.5.aspx': 'sultanahmet/restoran-servisleri/zeferan-restoran.5.aspx',
+          'sultanahmet/patisserie-services/feijoa-patisserie.9.aspx': 'sultanahmet/pastane-servisleri/feijoa-patisserie.9.aspx',
+          'sultanahmet/in-room-dining-services/in-room-dining.1013.aspx': 'sultanahmet/odada-yiyecek-icecek-servisi-servisleri/odada-yiyecek-icecek-servisi.1013.aspx',
+          'sultanahmet/spa-services/afiya-spa.6.aspx': 'sultanahmet/spa-servisleri/afiya-spa.6.aspx',
+          'sultanahmet/special-offers/last-minute-escape.1048.aspx': 'sultanahmet/ozel-firsatlar/last-minute-escape.1048.aspx',
+          'sultanahmet/special-offers/book-early-and-save.1045.aspx': 'sultanahmet/ozel-firsatlar/book-early-and-save.1045.aspx',
+          'sultanahmet/special-offers/mansions-offer-with-luxury-vip-transfer.1044.aspx': 'sultanahmet/ozel-firsatlar/mansions-offer-with-luxury-vip-transfer.1044.aspx',
+          'sultanahmet/special-offers/wellness-escape-offer.1047.aspx': 'sultanahmet/ozel-firsatlar/wellness-escape-offer.1047.aspx',
+          'sultanahmet/special-offers/stay-dine.1043.aspx': 'sultanahmet/ozel-firsatlar/stay-dine.1043.aspx',
+          'sultanahmet/special-offers/honeymoon-in-luxury.1046.aspx': 'sultanahmet/ozel-firsatlar/honeymoon-in-luxury.1046.aspx',
+          'sultanahmet/experience/about-this-hotel.1.aspx': 'sultanahmet/deneyim/hakkimizda.1.aspx',
+          'sultanahmet/gallery.aspx': 'sultanahmet/galeri.aspx',
+          'sultanahmet/meeting.aspx': 'sultanahmet/toplanti.aspx',
+          'sultanahmet/concierge.aspx': 'sultanahmet/konsiyerj.aspx',
+          'sultanahmet/butler-service-services.6.aspx': 'sultanahmet/butler-hizmeti-servisleri.6.aspx',
+          'sultanahmet/contact.aspx': 'sultanahmet/iletisim.aspx',
+          'cappadocia/mainpage.aspx': 'cappadocia/anasayfa.aspx',
+          'sultanahmet/ajwa-homes.aspx': 'sultanahmet/ajwa-evleri.aspx'
+        };
+
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        var node;
+        while ((node = walker.nextNode())) {
+          var s = node.nodeValue.trim();
+          if (s && Object.prototype.hasOwnProperty.call(T, s)) node.nodeValue = node.nodeValue.replace(s, T[s]);
+        }
+        ['aria-label', 'alt', 'data-name'].forEach(function (attr) {
+          document.querySelectorAll('[' + attr + ']').forEach(function (el) {
+            var v = el.getAttribute(attr);
+            if (v && Object.prototype.hasOwnProperty.call(T, v)) el.setAttribute(attr, T[v]);
+          });
+        });
+        document.querySelectorAll('[data-walk], [data-car]').forEach(function (el) {
+          ['data-walk', 'data-car'].forEach(function (a) {
+            var v = el.getAttribute(a);
+            if (v) el.setAttribute(a, v.replace(/\bmin\b/, 'dk'));
+          });
+        });
+        Object.keys(URLS).forEach(function (en) {
+          document.querySelectorAll('a[href="' + BASE + en + '"]').forEach(function (a) { a.href = BASE + URLS[en]; });
+        });
+
+        /* Hero lockup: EŞSİZ / bir / DENEYİM — reading order preserved, so the
+           colossal line moves to the top and the small italic goes between. */
+        var lockup = document.querySelector('.lp-hero__lockup');
+        if (lockup) {
+          lockup.setAttribute('aria-label', 'Eşsiz Bir Deneyim');
+          var lines = lockup.querySelectorAll('[data-line]');
+          if (lines.length === 3) {
+            lines[0].className = 'lp-hero__lockup-lg'; lines[0].textContent = 'EŞSİZ';
+            lines[1].className = 'lp-hero__lockup-a';  lines[1].textContent = 'bir';
+            lines[2].textContent = 'DENEYİM';
+          }
+        }
+      })();
+    </script>
 
     <script src="./vendor/lenis.min.js"></script>
     <script src="./vendor/gsap.min.js"></script>
@@ -1483,8 +1709,8 @@
                 var walk = btn.getAttribute('data-walk');
                 var car = btn.getAttribute('data-car');
                 var bits = [];
-                if (walk) bits.push(walk + ' walk');
-                if (car) bits.push(/km/.test(car) ? car : car + ' drive');
+                if (walk) bits.push(walk + ' ' + ((window.AJWA_UI || {}).walk || 'walk'));
+                if (car) bits.push(/km/.test(car) ? car : car + ' ' + ((window.AJWA_UI || {}).drive || 'drive'));
                 setInfo(btn.getAttribute('data-name'), bits.join(' · '));
               } else {
                 setInfo(baseName, baseMeta);
