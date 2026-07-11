@@ -602,7 +602,7 @@
         </section>
 
         <!-- Spa -->
-        <section id="spa" class="lp-section">
+        <section id="spa" class="lp-section" style="background: var(--ajwa-bg);">
           <div class="lp-wrap">
             <div class="lp-feature">
               <div class="lp-figure" data-clip>
@@ -1153,6 +1153,30 @@
             gsap.to(heroExit, {
               yPercent: 12, scale: 1.08, transformOrigin: '50% 100%', ease: 'none',
               scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true }
+            });
+          }
+
+          // Section hand-offs (akaneyajapan-style): the outgoing section blurs
+          // or darkens in step with the incoming one. Rooms blurs away as
+          // Dining arrives; Dining then darkens while Afiya Spa washes from
+          // the house cream into its signature aqua.
+          var roomsSec = document.querySelector('#rooms');
+          var diningSec = document.querySelector('#dining');
+          var spaSec = document.querySelector('#spa');
+          if (roomsSec && diningSec) {
+            gsap.fromTo(roomsSec, { filter: 'blur(0px)' }, {
+              filter: 'blur(14px)', ease: 'none',
+              scrollTrigger: { trigger: diningSec, start: 'top 85%', end: 'top 15%', scrub: true }
+            });
+          }
+          if (diningSec && spaSec) {
+            gsap.fromTo(diningSec, { filter: 'brightness(1)' }, {
+              filter: 'brightness(0.15)', ease: 'none',
+              scrollTrigger: { trigger: spaSec, start: 'top 92%', end: 'top 15%', scrub: true }
+            });
+            gsap.to(spaSec, {
+              backgroundColor: '#87cec5', ease: 'none',
+              scrollTrigger: { trigger: spaSec, start: 'top 92%', end: 'top 15%', scrub: true }
             });
           }
 
