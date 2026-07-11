@@ -207,10 +207,58 @@
         min-height: calc(100dvh - 15rem);
         will-change: filter, transform, opacity; text-align: left;
       }
-      .lp-footer__logo { width: min(58vw, 920px); height: auto; display: block; }
+      /* Interactive map: hovering a landmark cross-fades in a layer that gilds
+         it and traces the route from the hotel door (mirrors ajwa.com.tr). */
+      .lp-map { flex: 0 1 auto; display: grid; gap: var(--ajwa-space-sm); justify-items: center; }
+      .lp-map__stack { position: relative; width: min(58vw, 920px); }
+      .lp-map__layer { width: 100%; height: auto; display: block; }
+      .lp-map__layer--hl {
+        position: absolute; inset: 0; opacity: 0;
+        transition: opacity var(--ajwa-dur-fast) var(--ajwa-ease);
+      }
+      .lp-map__layer--hl.is-active { opacity: 1; }
+      .lp-map__info { margin: 0; display: grid; gap: 0.15rem; text-align: center; min-height: 3.1em; }
+      .lp-map__info-name {
+        font-family: var(--ajwa-font-display); font-size: var(--ajwa-text-h-sm);
+        text-transform: uppercase; letter-spacing: 0.06em; color: var(--ajwa-ink);
+      }
+      .lp-map__info-meta {
+        font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm);
+        letter-spacing: var(--ajwa-track-label); text-transform: uppercase; color: var(--ajwa-ink-muted);
+      }
+
+      /* Nearby landmark list */
+      .lp-nearby { display: grid; gap: var(--ajwa-space-2xs); margin-top: var(--ajwa-space-sm); }
+      .lp-nearby__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+      .lp-nearby__item {
+        display: flex; align-items: baseline; justify-content: space-between; gap: var(--ajwa-space-md);
+        width: 100%; padding: 0.42em 0; background: none; border: 0;
+        border-bottom: 1px solid transparent; cursor: pointer; text-align: left;
+        font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-body-sm);
+        color: var(--ajwa-ink-soft);
+        transition: color var(--ajwa-dur-fast) var(--ajwa-ease), border-color var(--ajwa-dur-fast) var(--ajwa-ease);
+      }
+      .lp-nearby__time {
+        font-size: var(--ajwa-text-label-sm); letter-spacing: var(--ajwa-track-label);
+        text-transform: uppercase; color: var(--ajwa-ink-muted); white-space: nowrap;
+        transition: color var(--ajwa-dur-fast) var(--ajwa-ease);
+      }
+      .lp-nearby__item:hover,
+      .lp-nearby__item:focus-visible,
+      .lp-nearby__item.is-active { color: var(--ajwa-ink); border-bottom-color: var(--ajwa-accent-ink); }
+      .lp-nearby__item:hover .lp-nearby__time,
+      .lp-nearby__item:focus-visible .lp-nearby__time,
+      .lp-nearby__item.is-active .lp-nearby__time { color: var(--ajwa-accent-ink); }
+
       @media (max-width: 899.98px) {
+        /* The footer is taller than a phone screen, and a fixed element can't
+           scroll — so on mobile it rejoins the flow (no reveal, no spacer) and
+           every row stays reachable. */
+        .lp-footer { position: static; }
+        .lp-footer-spacer { display: none; }
         .lp-footer__reveal { min-height: 0; }
-        .lp-footer__logo { width: 100%; }
+        .lp-map__stack { width: 100%; }
+        .lp-map { width: 100%; }
       }
       .lp-footer__addresses {
         display: grid; grid-template-columns: 1fr; gap: var(--ajwa-space-lg);
@@ -616,8 +664,31 @@
                 <p class="lp-eyebrow">AJWA Homes Istanbul</p>
                 <p>The White Mansion &amp; The Clock House<br />K&uuml;&ccedil;&uuml;k Ayasofya, Fatih/İstanbul<br />+90 212 638 22 00</p>
               </div>
+
+              <div class="lp-nearby">
+                <p class="lp-eyebrow">Nearby</p>
+                <ul class="lp-nearby__list" data-map-list>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="mosque" data-name="Sultan Ahmed Mosque" data-walk="8 min" data-car="5 min">Sultan Ahmed Mosque<span class="lp-nearby__time">8&prime;</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="grand" data-name="Grand Bazaar" data-walk="8 min" data-car="15 min">Grand Bazaar<span class="lp-nearby__time">8&prime;</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="basilica" data-name="Basilica Cistern" data-walk="12 min" data-car="7 min">Basilica Cistern<span class="lp-nearby__time">12&prime;</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="hagia" data-name="Hagia Sophia" data-walk="13 min" data-car="7 min">Hagia Sophia<span class="lp-nearby__time">13&prime;</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="topkapi" data-name="Topkap&#305; Palace" data-walk="17 min" data-car="8 min">Topkap&#305; Palace<span class="lp-nearby__time">17&prime;</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="spice" data-name="Spice Bazaar" data-walk="18 min" data-car="11 min">Spice Bazaar<span class="lp-nearby__time">18&prime;</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="istanbul-airport" data-name="Istanbul Airport" data-car="47 km">Istanbul Airport<span class="lp-nearby__time">47 km</span></button></li>
+                  <li><button type="button" class="lp-nearby__item" data-map-key="sabiha-airport" data-name="Sabiha G&ouml;k&ccedil;en Airport" data-car="45 km">Sabiha G&ouml;k&ccedil;en<span class="lp-nearby__time">45 km</span></button></li>
+                </ul>
+              </div>
             </div>
-            <img class="lp-footer__logo" src="./img/sultanahmet-map.svg" alt="AJWA Sultanahmet — map of the historical peninsula" />
+
+            <div class="lp-map" data-map-root>
+              <div class="lp-map__stack">
+                <img class="lp-map__layer" src="./img/sultanahmet-map.svg" alt="AJWA Sultanahmet — map of the historical peninsula" />
+              </div>
+              <p class="lp-map__info" data-map-info>
+                <span class="lp-map__info-name">The historical peninsula</span>
+                <span class="lp-map__info-meta">Hover a landmark to trace the walk from the door</span>
+              </p>
+            </div>
           </div>
 
           <div class="lp-footer__band">
@@ -720,8 +791,12 @@
           // page lifts away. Spacer sized to exactly match the footer height.
           var footerEl = document.querySelector('.lp-footer');
           var spacer = document.querySelector('[data-footer-spacer]');
+          // On phones the footer rejoins the flow (see CSS) — it is taller than
+          // the screen there, and a fixed element cannot be scrolled into view.
+          var mqFlowFooter = window.matchMedia('(max-width: 899.98px)');
           function sizeSpacer() {
-            if (footerEl && spacer) spacer.style.height = footerEl.offsetHeight + 'px';
+            if (!footerEl || !spacer) return;
+            spacer.style.height = mqFlowFooter.matches ? '0px' : footerEl.offsetHeight + 'px';
           }
           function resync() {
             requestAnimationFrame(function () { sizeSpacer(); window.ScrollTrigger.refresh(); });
@@ -744,8 +819,11 @@
           }
 
           // Only the map + addresses blur in; the link band below stays put.
+          // Skipped on phones, where the footer is a normal in-flow block.
           var footerReveal = document.querySelector('[data-footer-reveal]');
-          if (footerReveal && spacer) {
+          if (footerReveal && mqFlowFooter.matches) {
+            gsap.set(footerReveal, { clearProps: 'filter,opacity,visibility,transform' });
+          } else if (footerReveal && spacer) {
             gsap.fromTo(footerReveal,
               { filter: 'blur(22px)', autoAlpha: 0.1, yPercent: 16 },
               { filter: 'blur(0px)', autoAlpha: 1, yPercent: 0, ease: 'none',
@@ -965,6 +1043,73 @@
           }
 
           window.ScrollTrigger.refresh();
+
+          // Interactive footer map (mirrors ajwa.com.tr): one pre-loaded layer
+          // per landmark that gilds it and traces the route from the door;
+          // cross-faded in on hover/focus/tap. Built after the preloader has
+          // taken its asset census, so these load quietly in the background.
+          (function () {
+            var root = document.querySelector('[data-map-root]');
+            var list = document.querySelector('[data-map-list]');
+            if (!root || !list) return;
+            var stack = root.querySelector('.lp-map__stack');
+            var info = root.querySelector('[data-map-info]');
+            var nameEl = info.querySelector('.lp-map__info-name');
+            var metaEl = info.querySelector('.lp-map__info-meta');
+            var baseName = nameEl.textContent, baseMeta = metaEl.textContent;
+            var items = Array.prototype.slice.call(list.querySelectorAll('.lp-nearby__item'));
+            var layers = {};
+
+            items.forEach(function (btn) {
+              var key = btn.getAttribute('data-map-key');
+              var img = document.createElement('img');
+              img.className = 'lp-map__layer lp-map__layer--hl';
+              img.src = './img/map/' + key + '.svg';
+              img.alt = ''; img.setAttribute('aria-hidden', 'true');
+              stack.appendChild(img);
+              layers[key] = img;
+            });
+
+            var activeKey = null;
+            function show(key) {
+              if (activeKey === key) return;
+              if (activeKey && layers[activeKey]) layers[activeKey].classList.remove('is-active');
+              activeKey = key;
+              items.forEach(function (b) {
+                b.classList.toggle('is-active', b.getAttribute('data-map-key') === key);
+              });
+              if (key && layers[key]) {
+                layers[key].classList.add('is-active');
+                var btn = list.querySelector('[data-map-key="' + key + '"]');
+                var walk = btn.getAttribute('data-walk');
+                var car = btn.getAttribute('data-car');
+                var bits = [];
+                if (walk) bits.push(walk + ' walk');
+                if (car) bits.push(/km/.test(car) ? car : car + ' drive');
+                nameEl.textContent = btn.getAttribute('data-name');
+                metaEl.textContent = bits.join(' · ');
+              } else {
+                nameEl.textContent = baseName;
+                metaEl.textContent = baseMeta;
+              }
+            }
+
+            // Hover drives it on a mouse; tap/Enter toggles it on touch and
+            // keyboard. Gate the hover path on pointerType, or a tap would fire
+            // a synthetic mouseenter (open) and then click (toggle shut).
+            items.forEach(function (btn) {
+              var key = btn.getAttribute('data-map-key');
+              btn.addEventListener('pointerenter', function (e) {
+                if (e.pointerType === 'mouse') show(key);
+              });
+              btn.addEventListener('click', function () {
+                show(activeKey === key ? null : key);
+              });
+            });
+            list.addEventListener('pointerleave', function (e) {
+              if (e.pointerType === 'mouse') show(null);
+            });
+          })();
         });
       })();
     </script>
