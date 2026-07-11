@@ -74,6 +74,14 @@
 
       /* Sections */
       .lp-section { padding: var(--ajwa-space-3xl) var(--ajwa-space-lg); }
+      /* Hand-off veil: darkening is a composited opacity fade on this black
+         overlay — visually identical to filter: brightness() but it never
+         re-rasterizes the section while scrubbing (tablets stutter on that). */
+      #rooms, #dining, #spa { position: relative; }
+      .lp-section-dim {
+        position: absolute; inset: 0; z-index: 3;
+        background: #000; opacity: 0; pointer-events: none; will-change: opacity;
+      }
       .lp-wrap { max-width: var(--ajwa-container); margin: 0 auto; }
 
       /* Hero */
@@ -480,6 +488,7 @@
 
         <!-- Rooms & Suites -->
         <section id="rooms" class="lp-section">
+          <div class="lp-section-dim" data-dim aria-hidden="true"></div>
           <div class="lp-wrap">
             <div style="display: grid; justify-items: center; text-align: center; gap: var(--ajwa-space-md); margin-bottom: var(--ajwa-space-2xl);">
               <p class="lp-eyebrow" data-fade>Accommodation</p>
@@ -581,6 +590,7 @@
 
         <!-- Dining -->
         <section id="dining" class="lp-section" style="background: var(--ajwa-bg-sunken);">
+          <div class="lp-section-dim" data-dim aria-hidden="true"></div>
           <div class="lp-wrap" style="display: grid; gap: var(--ajwa-space-2xl);">
             <div style="display: grid; gap: var(--ajwa-space-md);">
               <p class="lp-eyebrow" data-fade>Dining</p>
@@ -620,6 +630,7 @@
 
         <!-- Spa -->
         <section id="spa" class="lp-section" style="background: var(--ajwa-bg);">
+          <div class="lp-section-dim" data-dim aria-hidden="true"></div>
           <div class="lp-wrap">
             <div class="lp-feature">
               <div class="lp-figure" data-clip>
@@ -899,6 +910,9 @@
 
           var lenis = new window.Lenis({ lerp: SMOOTHNESS });
           window.__ajwaLenis = lenis;
+          // Touch devices flicker and stutter on big scrubbed CSS filters —
+          // the expensive blur effects get cheaper equivalents there.
+          var coarse = window.matchMedia('(pointer: coarse)').matches;
           lenis.on('scroll', window.ScrollTrigger.update);
           gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
           gsap.ticker.lagSmoothing(0);
@@ -955,10 +969,11 @@
           if (footerReveal && mqFlowFooter.matches) {
             gsap.set(footerReveal, { clearProps: 'filter,opacity,visibility,transform' });
           } else if (footerReveal && spacer) {
-            gsap.fromTo(footerReveal,
-              { filter: 'blur(22px)', autoAlpha: 0.1, yPercent: 16 },
-              { filter: 'blur(0px)', autoAlpha: 1, yPercent: 0, ease: 'none',
-                scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: true } });
+            var revealFrom = { autoAlpha: 0.1, yPercent: 16 };
+            var revealTo = { autoAlpha: 1, yPercent: 0, ease: 'none',
+              scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: true } };
+            if (!coarse) { revealFrom.filter = 'blur(22px)'; revealTo.filter = 'blur(0px)'; }
+            gsap.fromTo(footerReveal, revealFrom, revealTo);
           }
 
           document.querySelectorAll('[data-reveal]').forEach(function (group) {
@@ -1133,10 +1148,12 @@
               el.appendChild(wSpan);
               if (wi < words.length - 1) el.appendChild(document.createTextNode(' '));
             });
-            gsap.from(el.querySelectorAll('.lp-char'), {
-              opacity: 0, yPercent: 90, filter: 'blur(6px)', ease: 'power2.out', stagger: 0.035,
+            var charVars = {
+              opacity: 0, yPercent: 90, ease: 'power2.out', stagger: 0.035,
               scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 42%', scrub: 1 }
-            });
+            };
+            if (!coarse) charVars.filter = 'blur(6px)'; // per-char blur stutters on tablets
+            gsap.from(el.querySelectorAll('.lp-char'), charVars);
           });
 
           if (PARALLAX) {
@@ -1172,6 +1189,11 @@
           var mTrack = document.querySelector('[data-marquee-track]');
           if (mTrack) {
             var mLoop = gsap.to(mTrack, { xPercent: -50, ease: 'none', duration: 34, repeat: -1 });
+            // No point drifting while off-screen — pause to spare the main thread.
+            window.ScrollTrigger.create({
+              trigger: '.lp-manifesto', start: 'top bottom', end: 'bottom top',
+              onToggle: function (self) { if (self.isActive) mLoop.play(); else mLoop.pause(); }
+            });
             window.ScrollTrigger.create({
               onUpdate: function (self) {
                 var boost = 1 + Math.min(Math.abs(self.getVelocity()) / 800, 3);
@@ -1194,30 +1216,34 @@
           }
 
           // Section hand-offs (akaneyajapan-style): the outgoing section blurs
-          // or darkens in step with the incoming one. Rooms blurs away as
-          // Dining arrives; Dining then darkens as Afiya Spa takes the stage.
+          // or darkens in step with the incoming one. Darkening fades a black
+          // overlay in — (1-a)·C equals brightness(k)·C, so it looks the same
+          // as a brightness filter but stays composited. The rooms blur is a
+          // real filter on fine pointers only; touch devices get a veil.
           var roomsSec = document.querySelector('#rooms');
           var diningSec = document.querySelector('#dining');
           var spaSec = document.querySelector('#spa');
-          if (roomsSec && diningSec) {
-            gsap.fromTo(roomsSec, { filter: 'blur(0px)' }, {
-              filter: 'blur(14px)', ease: 'none',
-              scrollTrigger: { trigger: diningSec, start: 'top 85%', end: 'top 15%', scrub: true }
-            });
-          }
-          if (diningSec && spaSec) {
-            gsap.fromTo(diningSec, { filter: 'brightness(1)' }, {
-              filter: 'brightness(0.15)', ease: 'none',
-              scrollTrigger: { trigger: spaSec, start: 'top 92%', end: 'top 15%', scrub: true }
-            });
-          }
           var offersSec = document.querySelector('#offers');
-          if (spaSec && offersSec) {
-            gsap.fromTo(spaSec, { filter: 'brightness(1)' }, {
-              filter: 'brightness(0.15)', ease: 'none',
-              scrollTrigger: { trigger: offersSec, start: 'top 92%', end: 'top 15%', scrub: true }
+          var dimTo = function (sec, trigger, alpha, startAt) {
+            var d = sec && sec.querySelector('[data-dim]');
+            if (!d || !trigger) return;
+            gsap.fromTo(d, { opacity: 0 }, {
+              opacity: alpha, ease: 'none',
+              scrollTrigger: { trigger: trigger, start: 'top ' + startAt, end: 'top 15%', scrub: true }
             });
+          };
+          if (roomsSec && diningSec) {
+            if (coarse) {
+              dimTo(roomsSec, diningSec, 0.5, '85%');
+            } else {
+              gsap.fromTo(roomsSec, { filter: 'blur(0px)' }, {
+                filter: 'blur(14px)', ease: 'none',
+                scrollTrigger: { trigger: diningSec, start: 'top 85%', end: 'top 15%', scrub: true }
+              });
+            }
           }
+          dimTo(diningSec, spaSec, 0.85, '92%');
+          dimTo(spaSec, offersSec, 0.85, '92%');
 
           // Special Offers: pinned horizontal gallery (internationalsupply-style).
           // The section holds at the top while vertical scroll slides the track
