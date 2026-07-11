@@ -115,12 +115,13 @@
       /* Marquee headline (nueve.gr-style): one endless line, fading out toward
          the edges; scroll velocity leans on the tempo. */
       .lp-marquee {
-        width: 100%;
+        width: 70%;
         font-size: calc(var(--ajwa-text-display-1) * 0.75);
         overflow: hidden; white-space: nowrap;
-        -webkit-mask-image: linear-gradient(to right, transparent, #000 30%, #000 70%, transparent);
-        mask-image: linear-gradient(to right, transparent, #000 30%, #000 70%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
       }
+      @media (max-width: 760px) { .lp-marquee { width: 84%; } }
       .lp-marquee__track { display: inline-flex; width: max-content; will-change: transform; }
       .lp-marquee__item { display: inline-block; padding-right: 1.2em; }
 
