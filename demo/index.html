@@ -807,8 +807,8 @@
             };
             applyGold(-8);
 
-            var MIN_MS = 1800, MAX_MS = 15000;
-            var t0 = Date.now(), disp = 0, exited = false;
+            var MIN_MS = 2000, MAX_MS = 20000;
+            var t0 = Date.now(), disp = 0, exited = false, loadMs = null;
             var startExit = function () {
               if (exited) return; exited = true;
               gsap.ticker.remove(loadTick);
@@ -844,12 +844,23 @@
             var loadTick = function () {
               if (exited) return;
               var elapsed = Date.now() - t0;
-              var timeCap = Math.min(1, elapsed / MIN_MS);   // min-duration ramp
-              var goal = Math.min(target, timeCap);
-              if (elapsed >= MAX_MS) goal = 1;                // safety: never trap the user
-              disp += (goal - disp) * 0.12;                   // eased follow
-              applyGold(-8 + disp * 116);
-              if ((disp >= 0.995 && target >= 1 && elapsed >= MIN_MS) || elapsed >= MAX_MS) startExit();
+              if (target >= 1 && loadMs === null) loadMs = Math.max(elapsed, 1); // real load finished
+              var goal, done = false;
+              if (loadMs === null) {
+                // Still loading — the FIRST half of the bar tracks real load
+                // progress, so the whole intro runs ~2x the actual load time.
+                goal = target * 0.5;
+                if (elapsed >= MAX_MS) done = true;            // stuck-asset backstop
+              } else {
+                // Loaded — play the SECOND half over a span equal to the load
+                // time, so total intro ≈ 2 × real load (never below MIN_MS).
+                var totalMs = Math.max(loadMs * 2, MIN_MS);
+                goal = Math.max(0.5, Math.min(1, elapsed / totalMs));
+                if (disp >= 0.995 && elapsed >= totalMs) done = true;
+              }
+              disp += Math.max(0, goal - disp) * 0.1;          // monotonic — never drains back
+              applyGold(-8 + Math.min(disp, 1) * 116);
+              if (done) startExit();
             };
             gsap.ticker.add(loadTick);
           } else {
