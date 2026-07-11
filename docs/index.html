@@ -617,7 +617,7 @@
         </section>
 
         <!-- Spa -->
-        <section id="spa" class="lp-section">
+        <section id="spa" class="lp-section" style="background: var(--ajwa-bg);">
           <div class="lp-wrap">
             <div class="lp-feature">
               <div class="lp-figure" data-clip>
@@ -1196,6 +1196,13 @@
             gsap.fromTo(diningSec, { filter: 'brightness(1)' }, {
               filter: 'brightness(0.15)', ease: 'none',
               scrollTrigger: { trigger: spaSec, start: 'top 92%', end: 'top 15%', scrub: true }
+            });
+          }
+          var offersSec = document.querySelector('#offers');
+          if (spaSec && offersSec) {
+            gsap.fromTo(spaSec, { filter: 'brightness(1)' }, {
+              filter: 'brightness(0.15)', ease: 'none',
+              scrollTrigger: { trigger: offersSec, start: 'top 92%', end: 'top 15%', scrub: true }
             });
           }
 
