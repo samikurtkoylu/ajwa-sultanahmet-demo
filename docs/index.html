@@ -201,9 +201,17 @@
         display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
         gap: var(--ajwa-space-lg) var(--ajwa-space-2xl);
         width: 100%; max-width: var(--ajwa-container);
+        /* Fill the viewport so the footer stands as tall as the screen — the
+           booking band scrolls fully away and the enlarged map fills the gap. */
+        min-height: calc(100vh - 15rem);
+        min-height: calc(100dvh - 15rem);
         will-change: filter, transform, opacity; text-align: left;
       }
-      .lp-footer__logo { width: min(700px, 58vw); height: auto; display: block; }
+      .lp-footer__logo { width: min(58vw, 920px); height: auto; display: block; }
+      @media (max-width: 899.98px) {
+        .lp-footer__reveal { min-height: 0; }
+        .lp-footer__logo { width: 100%; }
+      }
       .lp-footer__addresses {
         display: grid; grid-template-columns: 1fr; gap: var(--ajwa-space-lg);
         flex: 0 0 auto; text-align: left;
