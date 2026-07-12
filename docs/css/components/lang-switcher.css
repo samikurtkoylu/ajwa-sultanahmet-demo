@@ -45,3 +45,12 @@
   color: var(--ajwa-ink);
   cursor: default;
 }
+
+/* Touch devices: pad the hit area toward the 44px minimum without changing the
+   visual layout (negative margins reclaim the added box). */
+@media (pointer: coarse) {
+  .ajwa-lang-switcher__lang {
+    padding: 14px 8px;
+    margin: -14px -2px;
+  }
+}

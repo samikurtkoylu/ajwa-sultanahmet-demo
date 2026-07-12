@@ -49,18 +49,78 @@
         padding: 18px var(--ajwa-space-lg);
         background: var(--ajwa-bg); border-bottom: 1px solid var(--ajwa-hairline);
       }
-      .lp-header__logo { display: flex; align-items: center; }
+      .lp-header__logo { display: flex; align-items: center; flex-shrink: 0; }
       .lp-header__logo img { height: 30px; width: auto; display: block; }
       .lp-header__nav { display: flex; align-items: center; gap: var(--ajwa-space-lg); }
       .lp-navlink {
         font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm);
         letter-spacing: var(--ajwa-track-label); text-transform: uppercase; font-weight: 600;
-        color: inherit; text-decoration: none;
+        color: inherit; text-decoration: none; white-space: nowrap;
         transition: color var(--ajwa-dur-fast) var(--ajwa-ease);
       }
       .lp-navlink:hover { color: var(--ajwa-accent-ink); }
       .lp-navlink--cta { border-bottom: 1px solid var(--ajwa-hairline-strong); padding-bottom: 5px; }
-      @media (max-width: 760px) { .lp-header__nav .lp-navlink:not(.lp-navlink--cta) { display: none; } }
+      /* Collapse the inline nav at the tablet mode-switch (900px), not 760px:
+         between 761-899px the full nav overflowed and the long Turkish labels
+         ('ODALAR & SÜİTLER', 'ÖZEL TEKLİFLER') stacked into 2-3 lines, inflating
+         the bar. Below 900 the bar is logo + TR|EN + hamburger; every section
+         link AND the booking CTA move into the drop-down menu. */
+      @media (max-width: 899.98px) { .lp-header__nav .lp-navlink { display: none; } }
+      /* Phones: tighten the bar so logo + TR|EN + burger sit comfortably at 320px. */
+      @media (max-width: 480px) {
+        .lp-header { padding-left: var(--ajwa-space-sm); padding-right: var(--ajwa-space-sm); }
+        .lp-header__nav { gap: var(--ajwa-space-sm); }
+      }
+
+      /* Hamburger + drop-down menu — only <900px, where the inline links hide.
+         The panel drops out of the header itself (absolute, top:100%) so it sits
+         flush under the bar whatever the bar's height. */
+      .lp-burger { display: none; }
+      .lp-menu { display: none; }
+      @media (max-width: 899.98px) {
+        .lp-burger {
+          display: inline-flex; align-items: center; justify-content: center;
+          width: 44px; height: 44px; margin-right: -10px; /* optical edge align */
+          padding: 0; background: none; border: 0; color: inherit; cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .lp-burger__box { position: relative; width: 22px; height: 12px; }
+        .lp-burger__line, .lp-burger__box::before, .lp-burger__box::after {
+          content: ''; position: absolute; left: 0; width: 100%; height: 1.5px;
+          background: currentColor;
+          transition: transform var(--ajwa-dur-fast) var(--ajwa-ease), opacity var(--ajwa-dur-fast) var(--ajwa-ease);
+        }
+        .lp-burger__box::before { top: 0; }
+        .lp-burger__line { top: 50%; transform: translateY(-50%); }
+        .lp-burger__box::after { bottom: 0; }
+        .lp-burger[aria-expanded="true"] .lp-burger__box::before { top: 50%; transform: translateY(-50%) rotate(45deg); }
+        .lp-burger[aria-expanded="true"] .lp-burger__line { opacity: 0; }
+        .lp-burger[aria-expanded="true"] .lp-burger__box::after { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+
+        .lp-menu {
+          display: grid; gap: 0; position: absolute; top: 100%; left: 0; right: 0;
+          background: var(--ajwa-bg); border-bottom: 1px solid var(--ajwa-hairline);
+          box-shadow: 0 20px 32px -24px rgba(36, 27, 23, 0.55);
+          padding: 0 var(--ajwa-space-lg) var(--ajwa-space-sm);
+          opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px);
+          transition: opacity var(--ajwa-dur-fast) var(--ajwa-ease),
+                      transform var(--ajwa-dur-fast) var(--ajwa-ease),
+                      visibility var(--ajwa-dur-fast) var(--ajwa-ease);
+        }
+        .lp-menu.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+        .lp-menu__link {
+          display: block; padding: 15px 0;
+          font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-label-sm);
+          letter-spacing: var(--ajwa-track-label); text-transform: uppercase; font-weight: 600;
+          color: var(--ajwa-ink); text-decoration: none;
+          border-bottom: 1px solid var(--ajwa-hairline);
+          transition: color var(--ajwa-dur-fast) var(--ajwa-ease);
+        }
+        .lp-menu__link:last-child { border-bottom: 0; }
+        .lp-menu__link:hover, .lp-menu__link:focus-visible { color: var(--ajwa-accent-ink); }
+        .lp-menu__link--cta { color: var(--ajwa-accent-ink); }
+      }
+      @media (max-width: 480px) { .lp-menu { padding-left: var(--ajwa-space-sm); padding-right: var(--ajwa-space-sm); } }
 
       /* Page above the fixed footer */
       .lp-page { position: relative; z-index: 2; background: var(--ajwa-bg); }
@@ -268,7 +328,10 @@
         transition: color var(--ajwa-dur-fast) var(--ajwa-ease), border-color var(--ajwa-dur-fast) var(--ajwa-ease);
       }
       .lp-hs__card:hover .lp-hs__cta { color: var(--ajwa-bone-50); border-color: var(--ajwa-bone-50); }
-      @media (max-width: 899.98px) {
+      /* Phones AND reduced-motion at any width: the pinned scrub is skipped, so
+         the track becomes a native horizontal swipe strip — otherwise the JS
+         that skips the pin would leave cards 2-6 clipped by overflow-x:clip. */
+      @media (max-width: 899.98px), (prefers-reduced-motion: reduce) {
         .lp-hs__track {
           height: auto; overflow-x: auto; scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch; scrollbar-width: none;
@@ -277,7 +340,13 @@
         .lp-hs__track::-webkit-scrollbar { display: none; }
         .lp-hs__intro { width: 86vw; padding: var(--ajwa-space-lg); scroll-snap-align: start; }
         .lp-hs__card { width: 80vw; height: min(72vh, 540px); padding: 0 var(--ajwa-space-xs); scroll-snap-align: center; }
-        .lp-hs__counter { top: 27%; }
+        /* The counter moves to a top corner so bottom-anchored caption text can
+           never paint over it, and the caption gets tighter side padding + a
+           smaller name + a 3-line clamp so the whole stack fits a 320px card. */
+        .lp-hs__counter { top: var(--ajwa-space-md); bottom: auto; left: auto; right: var(--ajwa-space-md); transform: none; }
+        .lp-hs__caption { padding: 0 var(--ajwa-space-md) var(--ajwa-space-lg); }
+        .lp-hs__name { font-size: var(--ajwa-text-h-sm); }
+        .lp-hs__desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
       }
 
       /* Recognition logos beneath the stat strip (sourced from ajwa.com.tr). */
@@ -366,7 +435,7 @@
       .lp-nearby__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
       .lp-nearby__item {
         display: flex; align-items: baseline; justify-content: space-between; gap: var(--ajwa-space-md);
-        width: 100%; padding: 0.42em 0; background: none; border: 0;
+        width: 100%; padding: 0.7em 0; background: none; border: 0;
         border-bottom: 1px solid transparent; cursor: pointer; text-align: left;
         font-family: var(--ajwa-font-sans); font-size: var(--ajwa-text-body-sm);
         color: var(--ajwa-ink-soft);
@@ -393,6 +462,9 @@
         .lp-footer__reveal { min-height: 0; }
         .lp-map__stack { width: 100%; }
         .lp-map { width: 100%; }
+        /* The invisible landmark hotspots are ~17-31px on a phone-width map;
+           floor them to the 44px touch minimum. */
+        .lp-map__spot { min-width: 44px; min-height: 44px; }
       }
       .lp-footer__addresses {
         display: grid; grid-template-columns: 1fr; gap: var(--ajwa-space-lg);
@@ -460,6 +532,16 @@
             </ul>
           </div>
           <a class="lp-navlink lp-navlink--cta" href="#book" data-scroll-to>Book your stay</a>
+          <button class="lp-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="lp-menu" data-burger>
+            <span class="lp-burger__box" aria-hidden="true"><span class="lp-burger__line"></span></span>
+          </button>
+        </nav>
+        <nav class="lp-menu" id="lp-menu" aria-label="Sections" data-menu>
+          <a class="lp-menu__link" href="#rooms" data-scroll-to data-menu-link>Rooms &amp; Suites</a>
+          <a class="lp-menu__link" href="#dining" data-scroll-to data-menu-link>Dining</a>
+          <a class="lp-menu__link" href="#spa" data-scroll-to data-menu-link>Spa</a>
+          <a class="lp-menu__link" href="#offers" data-scroll-to data-menu-link>Offers</a>
+          <a class="lp-menu__link lp-menu__link--cta" href="#book" data-scroll-to data-menu-link>Book your stay</a>
         </nav>
       </header>
 
@@ -1145,18 +1227,25 @@
         }
 
         ready(function () {
-          // Safety: never trap the page behind the loader if the libraries fail.
+          // Safety: never trap the page behind the loader if the libraries fail
+          // OR if a slow asset stalls the intro. A visual hide alone would leave
+          // the page scroll-locked (Lenis stopped) — so run the real bailout.
           setTimeout(function () {
+            if (window.__ajwaIntroDone) return;
+            if (typeof window.__ajwaBailout === 'function') { window.__ajwaBailout(); return; }
             var pre = document.querySelector('[data-preloader]');
-            if (pre && !window.__ajwaIntroDone) {
-              pre.style.display = 'none';
-              window.__ajwaIntroDone = true;
-            }
+            if (pre) pre.style.display = 'none';
+            if (window.__ajwaLenis) window.__ajwaLenis.start();
+            window.__ajwaIntroDone = true;
           }, 9000);
 
           if (!(window.Lenis && window.gsap && window.ScrollTrigger)) return;
           var gsap = window.gsap;
           gsap.registerPlugin(window.ScrollTrigger);
+          // Mobile URL-bar show/hide changes innerHeight and fires resize on
+          // nearly every scroll-direction change; without this, ~75 scrubbed
+          // triggers re-measure mid-gesture and the page visibly hitches.
+          window.ScrollTrigger.config({ ignoreMobileResize: true });
           if (window.CustomEase) {
             try {
               gsap.registerPlugin(window.CustomEase);
@@ -1164,7 +1253,13 @@
             } catch (e) { /* fall back to built-in eases */ }
           }
 
-          var lenis = new window.Lenis({ lerp: SMOOTHNESS });
+          // When the visitor asked to reduce motion, keep Lenis (the rest of the
+          // page leans on it) but turn OFF wheel smoothing so scrolling is 1:1
+          // native, not lerp-glided.
+          var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var lenis = new window.Lenis(prefersReduced
+            ? { lerp: 1, smoothWheel: false, syncTouch: false }
+            : { lerp: SMOOTHNESS });
           window.__ajwaLenis = lenis;
           // Touch devices flicker and stutter on big scrubbed CSS filters —
           // the expensive blur effects get cheaper equivalents there.
@@ -1173,13 +1268,17 @@
           gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
           gsap.ticker.lagSmoothing(0);
 
-          // Smooth anchor scrolling for header nav + back-to-top.
+          // Smooth anchor scrolling for header nav + back-to-top. Offset by the
+          // fixed header height so the target's eyebrow doesn't land hidden
+          // under the bar; jump instantly when motion is reduced.
+          var headerEl = document.querySelector('.lp-header');
           document.querySelectorAll('[data-scroll-to]').forEach(function (a) {
             a.addEventListener('click', function (e) {
               var target = document.querySelector(a.getAttribute('href'));
               if (!target) return;
               e.preventDefault();
-              lenis.scrollTo(target, { duration: 1.4 });
+              var off = -((headerEl && headerEl.offsetHeight) || 66) - 8;
+              lenis.scrollTo(target, prefersReduced ? { offset: off, immediate: true } : { offset: off, duration: 1.4 });
             });
           });
           var toTop = document.querySelector('[data-to-top]');
@@ -1209,27 +1308,50 @@
           var footerImg = footerEl && footerEl.querySelector('img');
           if (footerImg && !footerImg.complete) footerImg.addEventListener('load', resync, { once: true });
           if (document.fonts && document.fonts.ready) document.fonts.ready.then(resync);
-          window.addEventListener('resize', resync);
+          // Only resync on a real WIDTH change (debounced). Mobile browsers fire
+          // resize on every URL-bar show/hide (height-only) — refreshing ~75
+          // scrubbed triggers there just hitches the scroll for no layout gain.
+          var lastW = window.innerWidth, resizeT;
+          window.addEventListener('resize', function () {
+            if (window.innerWidth === lastW) return;
+            lastW = window.innerWidth;
+            clearTimeout(resizeT);
+            resizeT = setTimeout(resync, 200);
+          });
 
           var preloader = document.querySelector('[data-preloader]');
 
-          if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          if (prefersReduced) {
             if (preloader) preloader.style.display = 'none';
+            // Stop the looping hero film — a background video is exactly the
+            // ambient motion the visitor opted out of. The offers gallery is
+            // made reachable without the pin by the CSS strip fallback (its
+            // media query includes prefers-reduced-motion).
+            var rmVideo = document.querySelector('.lp-hero__video');
+            if (rmVideo) { try { rmVideo.pause(); } catch (e) {} rmVideo.removeAttribute('autoplay'); rmVideo.removeAttribute('loop'); }
             window.__ajwaIntroDone = true;
             return;
           }
 
           // Only the map + addresses blur in; the link band below stays put.
           // Skipped on phones, where the footer is a normal in-flow block.
+          // Wrapped in matchMedia so a tablet crossing the 900px line on rotation
+          // tears down the wrong-mode reveal and builds the right one (the old
+          // one-shot mqFlowFooter read left this frozen until reload).
           var footerReveal = document.querySelector('[data-footer-reveal]');
-          if (footerReveal && mqFlowFooter.matches) {
-            gsap.set(footerReveal, { clearProps: 'filter,opacity,visibility,transform' });
-          } else if (footerReveal && spacer) {
-            var revealFrom = { autoAlpha: 0.1, yPercent: 16 };
-            var revealTo = { autoAlpha: 1, yPercent: 0, ease: 'none',
-              scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: true } };
-            if (!coarse) { revealFrom.filter = 'blur(22px)'; revealTo.filter = 'blur(0px)'; }
-            gsap.fromTo(footerReveal, revealFrom, revealTo);
+          if (footerReveal && spacer) {
+            gsap.matchMedia().add({ desk: '(min-width: 900px)', flow: '(max-width: 899.98px)' }, function (ctx) {
+              if (ctx.conditions.flow) {
+                gsap.set(footerReveal, { clearProps: 'filter,opacity,visibility,transform' });
+                return;
+              }
+              sizeSpacer(); // ensure the trigger is measured in its desktop size
+              var revealFrom = { autoAlpha: 0.1, yPercent: 16 };
+              var revealTo = { autoAlpha: 1, yPercent: 0, ease: 'none',
+                scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: true } };
+              if (!coarse) { revealFrom.filter = 'blur(22px)'; revealTo.filter = 'blur(0px)'; }
+              gsap.fromTo(footerReveal, revealFrom, revealTo);
+            });
           }
 
           document.querySelectorAll('[data-reveal]').forEach(function (group) {
@@ -1291,6 +1413,10 @@
             var video = document.querySelector('.lp-hero__video');
             var urls = [];
             document.querySelectorAll('img').forEach(function (im) {
+              // Only gate on above-the-fold media — forcing the lazy offer/room
+              // images here would defeat loading="lazy" and pull megabytes the
+              // visitor may never scroll to onto the critical path.
+              if (im.loading === 'lazy') return;
               var u = im.getAttribute('src'); if (u) urls.push(u);
             });
             var total = urls.length + (video ? 1 : 0);
@@ -1303,10 +1429,14 @@
               if (im.complete) b();
             });
             if (video) {
-              if (video.readyState >= 4) bump();
+              // Gate on the first frame (loadeddata / HAVE_CURRENT_DATA), not full
+              // buffering — the poster is already covering, so waiting for the
+              // whole 5 MB clip to finish only prolongs the scroll lock.
+              if (video.readyState >= 2) bump();
               else {
                 var vdone = false, vb = function () { if (vdone) return; vdone = true; bump(); };
-                video.addEventListener('canplaythrough', vb, { once: true });
+                video.addEventListener('loadeddata', vb, { once: true });
+                video.addEventListener('canplay', vb, { once: true });
                 video.addEventListener('error', vb, { once: true });
                 try { video.load(); } catch (e) {}
               }
@@ -1350,6 +1480,9 @@
               tl.set(preloader, { display: 'none' });
               tl.add(function () { window.__ajwaIntroDone = true; lenis.start(); });
             };
+            // The 9s safety timeout reuses this real exit (idempotent via `exited`)
+            // so a stalled asset can never leave the page scroll-locked.
+            window.__ajwaBailout = startExit;
             var loadTick = function () {
               if (exited) return;
               var elapsed = Date.now() - t0;
@@ -1362,8 +1495,9 @@
                 if (elapsed >= MAX_MS) done = true;            // stuck-asset backstop
               } else {
                 // Loaded — play the SECOND half over a span equal to the load
-                // time, so total intro ≈ 2 × real load (never below MIN_MS).
-                var totalMs = Math.max(loadMs * 2, MIN_MS);
+                // time, so total intro ≈ 2 × real load (clamped to MIN..MAX so a
+                // slow first paint can't stretch the intro past the backstop).
+                var totalMs = Math.min(Math.max(loadMs * 2, MIN_MS), MAX_MS);
                 goal = Math.max(0.5, Math.min(1, elapsed / totalMs));
                 if (disp >= 0.995 && elapsed >= totalMs) done = true;
               }
@@ -1507,60 +1641,93 @@
           // On phones the track is a native swipe strip instead (see CSS).
           var hsSection = document.querySelector('[data-offers]');
           var hsTrack = document.querySelector('[data-offers-track]');
-          if (hsSection && hsTrack && !mqFlowFooter.matches) {
-            var hsDist = function () { return Math.max(0, hsTrack.scrollWidth - hsSection.clientWidth); };
-            var hsIntroBits = hsTrack.querySelectorAll('.lp-hs__intro > *');
-            var hsTween = gsap.to(hsTrack, {
-              x: function () { return -hsDist(); }, ease: 'none',
-              scrollTrigger: {
-                trigger: hsSection, start: 'top top',
-                end: function () { return '+=' + hsDist(); },
-                scrub: true, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
-                // The intro copy blurs away in step with the gallery's travel —
-                // fully blurred by ~1/3 of the way, as it leaves the frame.
-                onUpdate: function (self) {
-                  var v = Math.min(1, self.progress / 0.35);
-                  gsap.set(hsIntroBits, { filter: 'blur(' + (v * 10).toFixed(2) + 'px)' });
+          // The pin only exists >=900px; below that the CSS turns the track into
+          // a native swipe strip. matchMedia builds the pin when the desktop
+          // query matches and fully tears it down (pin-spacer, tween, drag
+          // listeners) when it stops — so rotating a tablet across 900px no
+          // longer strands the gallery in a half-torn state until reload.
+          if (hsSection && hsTrack) {
+            gsap.matchMedia().add('(min-width: 900px)', function () {
+              var hsDist = function () { return Math.max(0, hsTrack.scrollWidth - hsSection.clientWidth); };
+              var hsIntroBits = hsTrack.querySelectorAll('.lp-hs__intro > *');
+              var hsTween = gsap.to(hsTrack, {
+                x: function () { return -hsDist(); }, ease: 'none',
+                scrollTrigger: {
+                  trigger: hsSection, start: 'top top',
+                  end: function () { return '+=' + hsDist(); },
+                  scrub: true, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+                  // The intro copy blurs away in step with the gallery's travel —
+                  // fully blurred by ~1/3 of the way, as it leaves the frame.
+                  onUpdate: function (self) {
+                    var v = Math.min(1, self.progress / 0.35);
+                    gsap.set(hsIntroBits, { filter: 'blur(' + (v * 10).toFixed(2) + 'px)' });
+                  }
                 }
-              }
-            });
+              });
 
-            // Grab-drag the gallery: a horizontal drag maps 1:1 onto the page
-            // scroll that drives the scrub, so wheel, drag and the release
-            // momentum all share one source of truth and never fight.
-            var hsST = hsTween.scrollTrigger;
-            var hsDown = null, hsMoved = 0, hsVel = 0, hsLastX = 0, hsLastT = 0;
-            var hsClamp = function (y) { return Math.max(hsST.start, Math.min(hsST.end, y)); };
-            hsTrack.addEventListener('dragstart', function (e) { e.preventDefault(); });
-            hsTrack.addEventListener('pointerdown', function (e) {
-              if (e.pointerType !== 'mouse' || e.button !== 0) return;
-              hsDown = { x: e.clientX, scroll: window.scrollY };
-              hsMoved = 0; hsVel = 0; hsLastX = e.clientX; hsLastT = e.timeStamp;
-              hsTrack.classList.add('is-dragging');
-              try { hsTrack.setPointerCapture(e.pointerId); } catch (err) {}
+              // Grab-drag the gallery: a horizontal drag maps 1:1 onto the page
+              // scroll that drives the scrub, so wheel, drag and the release
+              // momentum all share one source of truth and never fight.
+              var hsST = hsTween.scrollTrigger;
+              var hsDown = null, hsMoved = 0, hsVel = 0, hsLastX = 0, hsLastT = 0;
+              var hsClamp = function (y) { return Math.max(hsST.start, Math.min(hsST.end, y)); };
+              var onDragStart = function (e) { e.preventDefault(); };
+              var onPointerDown = function (e) {
+                // Clear the drag distance on EVERY pointerdown (incl. touch, which
+                // returns just below) so a prior mouse-drag's value can't linger
+                // and swallow the next finger tap on a card.
+                hsMoved = 0;
+                if (e.pointerType !== 'mouse' || e.button !== 0) return;
+                hsDown = { x: e.clientX, scroll: window.scrollY };
+                hsVel = 0; hsLastX = e.clientX; hsLastT = e.timeStamp;
+                hsTrack.classList.add('is-dragging');
+                try { hsTrack.setPointerCapture(e.pointerId); } catch (err) {}
+              };
+              var onPointerMove = function (e) {
+                if (!hsDown) return;
+                var dx = e.clientX - hsDown.x;
+                hsMoved = Math.max(hsMoved, Math.abs(dx));
+                var dt = Math.max(1, e.timeStamp - hsLastT);
+                hsVel = 0.8 * hsVel + 0.2 * ((e.clientX - hsLastX) / dt);
+                hsLastX = e.clientX; hsLastT = e.timeStamp;
+                lenis.scrollTo(hsClamp(hsDown.scroll - dx), { immediate: true });
+              };
+              var hsRelease = function () {
+                if (!hsDown) return;
+                hsDown = null;
+                hsTrack.classList.remove('is-dragging');
+                var extra = -hsVel * 260; // flick momentum, eased out by Lenis
+                if (Math.abs(extra) > 40) lenis.scrollTo(hsClamp(window.scrollY + extra), { duration: 1.1 });
+              };
+              // A drag must not read as a click on the card underneath. Consume the
+              // flag so it can't leak to a later gesture, and exempt keyboard-
+              // synthesized clicks (e.detail === 0) — those can never be drags.
+              var onClick = function (e) {
+                var moved = hsMoved; hsMoved = 0;
+                if (moved > 8 && e.detail !== 0) { e.preventDefault(); e.stopPropagation(); }
+              };
+              hsTrack.addEventListener('dragstart', onDragStart);
+              hsTrack.addEventListener('pointerdown', onPointerDown);
+              hsTrack.addEventListener('pointermove', onPointerMove);
+              hsTrack.addEventListener('pointerup', hsRelease);
+              hsTrack.addEventListener('pointercancel', hsRelease);
+              hsTrack.addEventListener('click', onClick, true);
+
+              // matchMedia auto-reverts the tween + pinned ScrollTrigger; also
+              // detach the raw listeners and clear any drag/blur inline styles so
+              // the mobile strip starts clean.
+              return function cleanup() {
+                hsTrack.removeEventListener('dragstart', onDragStart);
+                hsTrack.removeEventListener('pointerdown', onPointerDown);
+                hsTrack.removeEventListener('pointermove', onPointerMove);
+                hsTrack.removeEventListener('pointerup', hsRelease);
+                hsTrack.removeEventListener('pointercancel', hsRelease);
+                hsTrack.removeEventListener('click', onClick, true);
+                hsTrack.classList.remove('is-dragging');
+                gsap.set(hsTrack, { clearProps: 'transform' });
+                gsap.set(hsIntroBits, { clearProps: 'filter' });
+              };
             });
-            hsTrack.addEventListener('pointermove', function (e) {
-              if (!hsDown) return;
-              var dx = e.clientX - hsDown.x;
-              hsMoved = Math.max(hsMoved, Math.abs(dx));
-              var dt = Math.max(1, e.timeStamp - hsLastT);
-              hsVel = 0.8 * hsVel + 0.2 * ((e.clientX - hsLastX) / dt);
-              hsLastX = e.clientX; hsLastT = e.timeStamp;
-              lenis.scrollTo(hsClamp(hsDown.scroll - dx), { immediate: true });
-            });
-            var hsRelease = function () {
-              if (!hsDown) return;
-              hsDown = null;
-              hsTrack.classList.remove('is-dragging');
-              var extra = -hsVel * 260; // flick momentum, eased out by Lenis
-              if (Math.abs(extra) > 40) lenis.scrollTo(hsClamp(window.scrollY + extra), { duration: 1.1 });
-            };
-            hsTrack.addEventListener('pointerup', hsRelease);
-            hsTrack.addEventListener('pointercancel', hsRelease);
-            // A drag must not read as a click on the card underneath.
-            hsTrack.addEventListener('click', function (e) {
-              if (hsMoved > 8) { e.preventDefault(); e.stopPropagation(); }
-            }, true);
           }
 
           window.ScrollTrigger.refresh();
@@ -1578,6 +1745,14 @@
             var nameEl = info.querySelector('.lp-map__info-name');
             var metaEl = info.querySelector('.lp-map__info-meta');
             var baseName = nameEl.textContent, baseMeta = metaEl.textContent;
+            // Touch devices have no hover — reword the prompt so it matches how
+            // the map is actually operated there.
+            if (window.matchMedia('(pointer: coarse)').matches) {
+              baseMeta = document.documentElement.lang === 'tr'
+                ? 'Rotayı görmek için bir simgeye dokunun'
+                : 'Tap a landmark to trace the walk from the door';
+              metaEl.textContent = baseMeta;
+            }
             var items = Array.prototype.slice.call(list.querySelectorAll('.lp-nearby__item'));
             var spots = Array.prototype.slice.call(stack.querySelectorAll('.lp-map__spot'));
             var layers = {};
@@ -1726,7 +1901,18 @@
                 if (e.pointerType === 'mouse') show(key);
               });
               btn.addEventListener('click', function () {
-                show(activeKey === key ? null : key);
+                var next = activeKey === key ? null : key;
+                show(next);
+                // On the stacked mobile footer the map sits below the Nearby
+                // list, so the gilded route + walk/drive readout would animate
+                // off-screen — pull the map into view when a landmark is picked.
+                if (next && window.matchMedia('(max-width: 899.98px)').matches) {
+                  var mapStack = document.querySelector('.lp-map__stack');
+                  if (mapStack) {
+                    if (window.__ajwaLenis) window.__ajwaLenis.scrollTo(mapStack, { offset: -16, duration: 0.8 });
+                    else mapStack.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }
               });
             });
             [list, stack].forEach(function (zone) {
@@ -1736,6 +1922,37 @@
             });
           })();
         });
+      })();
+    </script>
+
+    <!-- Mobile menu toggle — standalone so it works even if the animation
+         libraries fail or motion is reduced; the section links themselves reuse
+         the existing [data-scroll-to] smooth-scroll (or native anchor jumps). -->
+    <script>
+      (function () {
+        var burger = document.querySelector('[data-burger]');
+        var menu = document.querySelector('[data-menu]');
+        if (!burger || !menu) return;
+        var open = false;
+        function setOpen(v) {
+          open = v;
+          burger.setAttribute('aria-expanded', v ? 'true' : 'false');
+          menu.classList.toggle('is-open', v);
+        }
+        burger.addEventListener('click', function () { setOpen(!open); });
+        menu.addEventListener('click', function (e) {
+          if (e.target.closest('[data-menu-link]')) setOpen(false);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && open) { setOpen(false); burger.focus(); }
+        });
+        document.addEventListener('click', function (e) {
+          if (open && !menu.contains(e.target) && !burger.contains(e.target)) setOpen(false);
+        });
+        // Growing back to the desktop bar must not leave a stale-open panel.
+        var mq = window.matchMedia('(min-width: 900px)');
+        var onMq = function () { if (mq.matches) setOpen(false); };
+        if (mq.addEventListener) mq.addEventListener('change', onMq); else mq.addListener(onMq);
       })();
     </script>
   </body>
